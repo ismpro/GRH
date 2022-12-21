@@ -1,8 +1,8 @@
 {
-  "name": "ghr",
+  "name": "grh",
   "version": "1.0.0",
   "description": "GRH project",
-  "main": "server.js", 
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "chalk": "^4.1.2",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
