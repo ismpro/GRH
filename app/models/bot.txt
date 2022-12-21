@@ -1,0 +1,55 @@
+const mongoose = require('mongoose');
+
+const CandidatoSchema = new mongoose.Schema({
+  nome: String,
+  endereco: String,
+  email: String,
+  telefone: String,
+  dataNascimento: Date,
+  genero: String,
+  escolaridade: String,
+  experienciaProfissional: String,
+  habilidades: [String],
+  pretensaoSalarial: Number
+});
+
+const VagaSchema = new mongoose.Schema({
+  titulo: String,
+  descricao: String,
+  requisitos: String,
+  dataExpiracao: Date,
+  status: {
+    type: String,
+    enum: ['ativa', 'inativa'],
+    default: 'ativa'
+  }
+});
+
+const EmpresaSchema = new mongoose.Schema({
+  nome: String,
+  endereco: String,
+  email: String,
+  telefone: String,
+  tipo: String,
+  setorAtuacao: String,
+  tamanho: {
+    type: String,
+    enum: ['pequena', 'media', 'grande'],
+    default: 'pequena'
+  }
+});
+
+const ContratacaoSchema = new mongoose.Schema({
+  candidato: { type: mongoose.Schema.Types.ObjectId, ref: 'Candidato' },
+  vaga: { type: mongoose.Schema.Types.ObjectId, ref: 'Vaga' },
+  data: Date,
+  salario: Number
+});
+
+module.exports = {
+  Candidato: mongoose.model('Candidato', CandidatoSchema),
+  Vaga: mongoose.model('Vaga', VagaSchema),
+  Empresa: mongoose.model('Empresa', EmpresaSchema),
+  Entrevista: mongoose.model('Entrevista', EntrevistaSchema),
+  Contratacao: mongoose.model('Contratacao', ContratacaoSchema)
+};
