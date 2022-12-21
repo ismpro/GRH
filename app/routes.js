@@ -6,6 +6,14 @@ module.exports = function (app) {
         res.status(200).send('<h1>Hello World</h1>');
     })
 
+    app.post('/auth/validate', require('./routes/auth/validate')())
+
+    app.post('/auth/logout', require('./routes/auth/logout')())
+
+    app.post('/auth/login', require('./routes/auth/login')())
+
+    app.post('/auth/register', require('./routes/auth/register')())
+
     app.get('*', function (req, res) {
         res.status(404).sendFile(path.join(global.appRoot, 'views', '404.html'));
     })

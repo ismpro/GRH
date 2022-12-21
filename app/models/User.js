@@ -9,7 +9,11 @@ const userSchema = new Schema({
     type: String,
     enum: ['candidato', 'trabalhador', 'manager'],
     default: 'candidato'
-  }
+  },
+  /**
+    * The id of the user session
+    */
+  atribuitesessionid: String
 }, { timestamps: true });
 
 userSchema.methods.validatePassword = function(compare) {

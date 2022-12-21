@@ -25,6 +25,7 @@ global.appRoot = path.resolve(__dirname);
 global.NODE_MODE = Boolean(process.env.NODE_DEV === 'true');
 console.log(chalk.green(`  Node Mode: ${(global.NODE_MODE ? 'DEV' : 'PRD')}`));
 
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -62,7 +63,7 @@ app.use(session({
         sameSite: 'lax',
         secure: false
     },
-    store: MongoStore.create({ client: db.getClient(), dbName: "gth", collectionName: "Sessions"})
+    store: MongoStore.create({ client: db.getClient(), dbName: "server", collectionName: "Sessions"})
 }))
 
 //Logger
