@@ -13,30 +13,30 @@ module.exports = function () {
         User.findOne({
             email: data.email
         }, function (err, user) {
-            if (!err) {
-                if (!user) {
-                    let newUser = new User();
-                    newUser.email = data.email;
-                    newUser.firstName = data.first_name
-                    newUser.lastName = data.last_name
-                    newUser.password = newUser.generateHash(data.password);
-                    newUser.creationDate = new Date();
-                    newUser.admin = false;
-                    newUser.atribuitesessionid = 'expired';
-                    newUser.save(function (err, user) {
-                        if (!err && user) {
-                            res.status(230).send(true);
-                        } else {
-                            console.log(err)
-                            res.status(500).send('Error on resgisting on server');
-                        }
-                    });
-                } else {
-                    res.status(231).send('Email already in use!');
-                }
-            } else {
+            if (err) {
                 res.status(231).send('Email already in use!');
+                return;
             }
+
+            if (user) {
+                res.status(231).send('Email already in use!');
+                return;
+            }
+
+            let newUser = new User();
+            newUser.email = data.email;
+            newUser.username = data.username;
+            newUser.type = data.type;
+            newUser.password = data.password;
+            newUser.atribuitesessionid = 'expired';
+            newUser.save(function (err, user) {
+                if (!err && user) {
+                    res.status(230).send(true);
+                } else {
+                    console.log(err)
+                    res.status(500).send('Error on resgisting on server');
+                }
+            });
         });
     }
 }

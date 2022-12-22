@@ -10,9 +10,6 @@ module.exports = function () {
         if (req.session.userid) {
             User.findById(req.session.userid, function (err, user) {
                 if (!err) {
-                    if (req.session.adminsessionId) {
-                        user.adminatribuitesessionid = 'expired';
-                    }
                     if (req.session.sessionId) {
                         user.atribuitesessionid = 'expired';
                     }

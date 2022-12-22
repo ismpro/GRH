@@ -13,7 +13,7 @@ module.exports = function () {
                     res.status(500).send(err.message)
                 } else {
                     if (user && user.atribuitesessionid === req.session.sessionId) {
-                        res.status(200).send(req.session.sessionId)
+                        res.status(200).send(true)
                     } else {
                         res.status(200).send(false)
                     }

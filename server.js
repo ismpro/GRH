@@ -11,6 +11,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
 const chalk = require('chalk');
+const morgan = require('morgan');
 
 console.clear()
 console.log(chalk.green('\n  Starting server'));
@@ -46,11 +47,17 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
+//Setting up cookies parser
+app.use(cookieParser())
+
+//Logger
+//app.use(logger());
+app.use(morgan("dev"))
+
 //Serving statics files
 app.use(express.static('public'))
 
-//Setting up cookies parser
-app.use(cookieParser())
+
 
 //Setting Sessions
 app.use(session({
@@ -66,8 +73,6 @@ app.use(session({
     store: MongoStore.create({ client: db.getClient(), dbName: "server", collectionName: "Sessions"})
 }))
 
-//Logger
-//app.use(logger());
 
 //Adding Routes
 require('./app/routes.js')(app)
