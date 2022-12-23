@@ -23,6 +23,11 @@ var codes = [
         "color": "#ffff00"
     },
     {
+        "code": 400,
+        "message": "Bad Request",
+        "color": "#0000ff"
+    },
+    {
         "code": 401,
         "message": "Request Unauthorized",
         "color": "#0000ff"

@@ -6,6 +6,11 @@ module.exports = function (app) {
         res.status(200).send('<h1>Hello World</h1>');
     })
 
+    //Funcoes
+    app.get('/funcoes', require('./routes/funcoes/all')())
+    app.get('/funcoes/:id', require('./routes/funcoes/byId')())
+
+    //Auth
     app.post('/auth/validate', require('./routes/auth/validate')())
 
     app.post('/auth/logout', require('./routes/auth/logout')())

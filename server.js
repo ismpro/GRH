@@ -34,7 +34,6 @@ mongoose.connect(process.env.DB, {
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
 //Disabling things for security
 app.disable('x-powered-by');
 app.use(helmet())
@@ -57,8 +56,6 @@ app.use(morgan("dev"))
 //Serving statics files
 app.use(express.static('public'))
 
-
-
 //Setting Sessions
 app.use(session({
     name: 'sid',
@@ -72,7 +69,6 @@ app.use(session({
     },
     store: MongoStore.create({ client: db.getClient(), dbName: "server", collectionName: "Sessions"})
 }))
-
 
 //Adding Routes
 require('./app/routes.js')(app)
