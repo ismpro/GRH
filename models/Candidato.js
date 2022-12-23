@@ -12,7 +12,11 @@ const CandidatoSchema = new Schema({
   habilidades: [String],
   pretensaoSalarial: Number,
   cv: String,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  status: {
+    type: String,
+    enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
+    default: 'created'
+  }
 }, { timestamps: true });
 
 module.exports = model('Candidato', CandidatoSchema);

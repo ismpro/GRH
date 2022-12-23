@@ -54,7 +54,7 @@ app.use(cookieParser())
 app.use(morgan("dev"))
 
 //Serving statics files
-app.use(express.static('public'))
+app.use(express.static('www'))
 
 //Setting Sessions
 app.use(session({

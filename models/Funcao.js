@@ -13,7 +13,7 @@ const VagaSchema = new Schema({
 const FuncaoSchema = new Schema({
     titulo: String,
     descricao: String,
-    manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    manager: { type: Schema.Types.ObjectId, ref: 'User' },
     vagas: [VagaSchema]
 }, { timestamps: true });
 

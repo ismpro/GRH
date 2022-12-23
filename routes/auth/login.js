@@ -2,7 +2,7 @@
 const User = require('../../models/User');
 const {
     createid
-} = require('../../functions.js');
+} = require('../../app/functions');
 
 /**
  * Module that logins a user
