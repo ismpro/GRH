@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')
 const chalk = require('chalk');
 const morgan = require('morgan');
 
+
 console.clear()
 console.log(chalk.green('\n  Starting server'));
 
@@ -36,7 +37,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //Disabling things for security
 app.disable('x-powered-by');
-app.use(helmet())
+//app.use(helmet())
 
 // parse application/json
 app.use(bodyParser.json())
@@ -85,4 +86,45 @@ db.once('open', function () {
     () => {
         console.log(chalk.green(`\n  Server Listing on: ${server.address().address === '::' ? 'localhost' : server.address().address}:${server.address().port}`))
     })
+
+    /* 
+        const can = require("./models/Candidato")
+
+        let candidato1 = new can({
+        nome: "Bruno Russo",
+        type: "Externo",
+        vaga: "63a9ccd6e7f2a6c2bdc34539",
+        status: "triagem"
+    });
+
+    let candidato2 = new can({
+        nome: "Alexandre Olivetree",
+        type: "Interno",
+        vaga: "63a9ccd6e7f2a6c2bdc34539",
+        status: "triagem"
+    });
+
+    candidato1.save()
+    candidato2.save() */
+
+   /*  nome: String,
+  endereco: String,
+  email: String,
+  telefone: String,
+  dataNascimento: Date,
+  genero: String,
+  escolaridade: String,
+  experienciaProfissional: String,
+  habilidades: [String],
+  pretensaoSalarial: Number,
+  type: {
+    type: String,
+    enum: ['Interno', 'Externo'],
+    default: 'Externo'
+  },
+  status: {
+    type: String,
+    enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
+    default: 'created'
+  } */
 });

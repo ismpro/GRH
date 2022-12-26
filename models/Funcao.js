@@ -5,8 +5,8 @@ const VagaSchema = new Schema({
     dataExpiracao: Date,
     status: {
       type: String,
-      enum: ['ativa', 'inativa'],
-      default: 'ativa'
+      enum: ['ativo', 'inativo'],
+      default: 'ativo'
     }
 });
 

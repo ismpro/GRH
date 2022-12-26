@@ -11,12 +11,17 @@ const CandidatoSchema = new Schema({
   experienciaProfissional: String,
   habilidades: [String],
   pretensaoSalarial: Number,
-  cv: String,
+  type: {
+    type: String,
+    enum: ['Interno', 'Externo'],
+    default: 'Externo'
+  },
   status: {
     type: String,
     enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
     default: 'created'
-  }
+  },
+  vaga: { type: Schema.Types.ObjectId, ref: 'Funcao' },
 }, { timestamps: true });
 
 module.exports = model('Candidato', CandidatoSchema);

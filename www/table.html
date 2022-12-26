@@ -8,12 +8,50 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/bs-init.js"></script>
     <script src="scripts/theme.js"></script>
+    <script src="scripts/table.js"></script>
 </head>
 
 <body id="page-top">
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Candidatura</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalInfo">
+                        <p>Nome: Alex</p>
+                        <p>Nome: Alex</p>
+                        <p>Nome: Alex</p>
+                    </div>
+                    <hr style="border-top: 3px solid #bbb;">
+                    <div>
+                        <p>Selecionar o proximo passo:</p>
+                        <div class="x-dropdown dropdown">
+                            <div class="text-start x-drop-btn" aria-expanded="false" data-bs-toggle="dropdown">
+                                <span id="modalDropdownTitle" >Escolher Decisão</span><i class="material-icons">keyboard_arrow_down</i>
+                            </div>
+                            <div id="modalDropdown" class="dropdown-menu" role="menu">
+                                <a class="dropdown-item" role="presentation" href="#">xxxxx1</a>
+                                <a class="dropdown-item" role="presentation" href="#">xxxx2</a>
+                                <a class="dropdown-item" role="presentation" href="#">xxxxxx3</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="button">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
@@ -97,21 +135,7 @@
                                             <th>Start date</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Interno</td>
-                                            <td>2008/11/28</td>
-                                            <td><button class="btn btn-primary" type="button">Button</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alex</td>
-                                            <td>Accountant</td>
-                                            <td>Externo</td>
-                                            <td>2008/11/28</td>
-                                            <td><button class="btn btn-primary" type="button">Button</button></td>
-                                        </tr>
+                                    <tbody id="table">
                                     </tbody>
                                     <tfoot>
                                         <tr>
