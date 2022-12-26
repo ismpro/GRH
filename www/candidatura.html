@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+    <link rel="stylesheet" href="styles/Google-Style-Text-Input.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/bs-init.js"></script>
@@ -29,7 +30,6 @@
                     </div>
                     <hr style="border-top: 3px solid #bbb;">
                     <div>
-                        <p>Selecionar o proximo passo:</p>
                         <div class="x-dropdown dropdown">
                             <div class="text-start x-drop-btn" aria-expanded="false" data-bs-toggle="dropdown">
                                 <span id="modalDropdownTitle" >Escolher Decisão</span><i class="material-icons">keyboard_arrow_down</i>
@@ -38,10 +38,12 @@
                             </div>
                         </div>
                     </div>
+                    <div id="modalMore">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="button">Save</button>
+                    <button onclick="javascript: onSave()" class="btn btn-primary" type="button">Save</button>
                 </div>
             </div>
         </div>

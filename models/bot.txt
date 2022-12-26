@@ -53,3 +53,142 @@ module.exports = {
   Entrevista: mongoose.model('Entrevista', EntrevistaSchema),
   Contratacao: mongoose.model('Contratacao', ContratacaoSchema)
 };
+
+ingles
+
+Choose the correct verb form to complete the following sentence: "I ____ to the store yesterday."
+a) went
+b) go
+c) gone
+
+Rewrite the following sentence in the negative form: "She speaks Spanish fluently."
+a) She does not speak Spanish fluently.
+b) She speaks no Spanish fluently.
+c) She not speaks Spanish fluently.
+
+Choose the correct preposition to complete the following sentence: "I'm going ____ vacation next week."
+a) in
+b) on
+c) at
+
+Rewrite the following sentence in the past tense: "I am working on a project."
+a) I was working on a project.
+b) I am work on a project.
+c) I have worked on a project.
+
+Choose the correct word to complete the following sentence: "I ____ my keys on the kitchen counter."
+a) left
+b) lefted
+c) leave
+
+Rewrite the following sentence in the present tense: "He will finish the report tomorrow."
+a) He finishes the report tomorrow.
+b) He will finish the report today.
+c) He is finishing the report tomorrow.
+
+Choose the correct verb form to complete the following sentence: "They ____ to the party last night."
+a) go
+b) went
+c) gone
+
+Rewrite the following sentence in the future tense: "I am going to the store."
+a) I will go to the store.
+b) I am going to the store tomorrow.
+c) I am going to the store next week.
+
+Choose the correct word to complete the following sentence: "I ____ a lot of emails today."
+a) sent
+b) send
+c) sented
+
+Rewrite the following sentence in the present continuous tense: "I am writing a letter."
+a) I write a letter.
+b) I am writing a letter now.
+c) I will write a letter.
+
+informatica
+
+What is the primary function of an operating system?
+a) To manage hardware resources
+b) To provide a platform for application software
+c) To perform data analysis
+d) To design and maintain websites
+
+Which of the following is not a programming language?
+a) Python
+b) Java
+c) HTML
+d) Excel
+
+What is the difference between a compiler and an interpreter?
+a) A compiler converts source code into machine code, while an interpreter executes source code directly.
+b) A compiler executes source code directly, while an interpreter converts source code into machine code.
+c) A compiler is used for high-level languages, while an interpreter is used for low-level languages.
+d) A compiler is used for client-side programming, while an interpreter is used for server-side programming.
+
+What is the purpose of a loop in programming?
+a) To execute a block of code multiple times
+b) To jump to a specific point in the code
+c) To terminate a program
+d) To store data temporarily
+
+Which of the following is not a type of data structure?
+a) Array
+b) Linked list
+c) Queue
+d) Microsoft Word
+
+What is the difference between a static and a dynamic website?
+a) A static website is written in HTML, while a dynamic website is written in a programming language such as Java or PHP.
+b) A static website contains fixed content, while a dynamic website contains constantly changing content.
+c) A static website is hosted on a local server, while a dynamic website is hosted on a remote server.
+d) A static website is accessible from any device, while a dynamic website is only accessible from certain devices.
+
+What is the primary function of a database management system?
+a) To store and retrieve data efficiently
+b) To design and maintain websites
+c) To perform data analysis
+d) To manage hardware resources
+
+Which of the following is not a common database model?
+a) Relational
+b) Hierarchical
+c) Network
+d) Microsoft Excel
+
+What is the difference between a client and a server?
+a) A client initiates requests, while a server responds to requests.
+b) A client processes data, while a server stores data.
+c) A client is a desktop computer, while a server is a mobile device.
+d) A client is used for client-side programming, while a server is used for server-side programming.
+
+What is the primary function of a computer network?
+a) To share resources such as printers and files
+b) To store and retrieve data efficiently
+c) To perform data analysis
+d) To manage hardware resources
+
+Sure! Here are the answers to the English test:
+
+a) went
+a) She does not speak Spanish fluently.
+b) on
+a) I was working on a project.
+a) left
+a) He finishes the report tomorrow.
+b) went
+a) I will go to the store.
+a) sent
+b) I am writing a letter now.
+And here are the answers to the computer science test:
+
+a) To manage hardware resources
+d) Excel
+a) A compiler converts source code into machine code, while an interpreter executes source code directly.
+a) To execute a block of code multiple times
+d) Microsoft Word
+b) A static website contains fixed content, while a dynamic website contains constantly changing content.
+a) To store and retrieve data efficiently
+d) Microsoft Excel
+a) A client initiates requests, while a server responds to requests.
+a) To share resources such as printers and files

@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = function (app) {
+module.exports = function (app, Mailing) {
 
     /* app.get('/', function (req, res) {
         res.status(200).send('<h1>Hello World</h1>');
@@ -14,6 +14,7 @@ module.exports = function (app) {
     app.get('/candidatos', require('../routes/candidato/all')())
     app.get('/candidatos/:id', require('../routes/candidato/byId')())
     app.post('/candidatos/create', require('../routes/candidato/create')())
+    app.post('/candidatos/alterStatus', require('../routes/candidato/alterStatus')(Mailing))
 
     //Auth
     app.post('/auth/validate', require('../routes/auth/validate')())

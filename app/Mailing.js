@@ -17,12 +17,6 @@ const oauth2Client = new OAuth2(
     MAILING_SERVICE_CLIENT_SECRET,
     OAUTH_PLAYGROUND
 );
-const TEMPLATES = {
-    subscribe: {
-        fileName: 'test.ejs',
-        subject: 'Teste mail',
-    },
-};
 
 /**
  * Send Email
@@ -48,14 +42,14 @@ Mailing.sendEmail = function (data) {
             },
         });
     
-        const filePath = `${global.appRoot}\\templates\\${TEMPLATES[data.template].fileName}`;
+        const filePath = `${global.appRoot}\\templates\\${data.template}.ejs`;
     
         let error = ejs.renderFile(filePath, data, {}, (e, content) => {
             if (e) return e;
             const mailOptions = {
                 from: SENDER_EMAIL_ADDRESS,
                 to: data.email,
-                subject: TEMPLATES[data.template].subject,
+                subject: data.subject,
                 html: content,
             };
             smtpTransport.sendMail(mailOptions, (err, info) => {

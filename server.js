@@ -81,7 +81,7 @@ app.use(session({
 }))
 
 //Adding Routes
-require('./app/routes.js')(app)
+require('./app/routes.js')(app, Mailing)
 
 //Handling erros inside of server
 app.use(function (err, req, res) {
