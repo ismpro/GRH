@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
 const chalk = require('chalk');
 const morgan = require('morgan');
-
+const Mailing = require("./app/Mailing");
 
 console.clear()
 console.log(chalk.green('\n  Starting server'));
@@ -34,6 +34,18 @@ mongoose.connect(process.env.DB, {
 });
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+//Mail
+(async function gg() {
+    try {
+        await Mailing.sendEmail({email: "ismaelourenco@msn.com", template: "subscribe"});
+    } catch (error) {
+        console.log(error)
+    }
+}())
+
+
+
 
 //Disabling things for security
 app.disable('x-powered-by');
