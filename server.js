@@ -36,16 +36,13 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 //Mail
-(async function gg() {
+/* (async function gg() {
     try {
-        await Mailing.sendEmail({email: "ismaelourenco@msn.com", template: "subscribe"});
+        await Mailing.sendEmail({email: "ismaelourenco@msn.com", template: "test"});
     } catch (error) {
         console.log(error)
     }
-}())
-
-
-
+}()) */
 
 //Disabling things for security
 app.disable('x-powered-by');

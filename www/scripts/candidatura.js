@@ -53,13 +53,14 @@ function makeModal(candidato) {
         <p>Salario pretendido: ${candidato.pretensaoSalarial} €</p>
     `
 
-    modalDropdown.innerHTML = `
-        <a class="dropdown-item" role="presentation" href="#">Aprovar</a>
+    modalDropdown.innerHTML = "";
+    
+
+    {/* <a class="dropdown-item" role="presentation" href="#">Aprovar</a>
         <a class="dropdown-item" role="presentation" href="#">Reprovar</a>
         <a class="dropdown-item" role="presentation" href="#">Passar para teste</a>
-        <a class="dropdown-item" role="presentation" href="#">Passar para entrevista</a>
-        <a class="dropdown-item" role="presentation" href="#">Passar para decisão</a>
-    `
+        <a class="dropdown-item" role="presentation" href="#">Marcar entrevista</a>
+        <a class="dropdown-item" role="presentation" href="#">Passar para decisão</a> */}
 }
 
 window.onload = function () {

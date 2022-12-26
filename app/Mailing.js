@@ -19,54 +19,53 @@ const oauth2Client = new OAuth2(
 );
 const TEMPLATES = {
     subscribe: {
-        fileName: 'subscribe.ejs',
-        subject: '[ABC Inc.] Welcome to ABC Inc.',
+        fileName: 'test.ejs',
+        subject: 'Teste mail',
     },
 };
 
 /**
  * Send Email
  */
-Mailing.sendEmail = async data => {
+Mailing.sendEmail = function (data) {
+    return new Promise(async (resolve, reject) => {
 
-    console.log(data);
-
-    oauth2Client.setCredentials({
-        refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
-    });
-
-    const accessToken = await oauth2Client.getAccessToken();
-
-    const smtpTransport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            type: 'OAuth2',
-            user: SENDER_EMAIL_ADDRESS,
-            clientId: MAILING_SERVICE_CLIENT_ID,
-            clientSecret: MAILING_SERVICE_CLIENT_SECRET,
-            refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
-            accessToken,
-        },
-    });
-
-    const filePath = `${global.appRoot}\\templates\\${TEMPLATES[data.template].fileName}`;
-
-    let error = ejs.renderFile(filePath, data, {}, (e, content) => {
-        if (e) return e;
-        const mailOptions = {
-            from: SENDER_EMAIL_ADDRESS,
-            to: data.email,
-            subject: TEMPLATES[data.template].subject,
-            html: content,
-        };
-        smtpTransport.sendMail(mailOptions, (err, info) => {
-            console.log(err)
-            console.log(info)
-            if (err) return err;
-            return info;
+        oauth2Client.setCredentials({
+            refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
         });
-    });
+    
+        const accessToken = await oauth2Client.getAccessToken();
+    
+        const smtpTransport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: SENDER_EMAIL_ADDRESS,
+                clientId: MAILING_SERVICE_CLIENT_ID,
+                clientSecret: MAILING_SERVICE_CLIENT_SECRET,
+                refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
+                accessToken,
+            },
+        });
+    
+        const filePath = `${global.appRoot}\\templates\\${TEMPLATES[data.template].fileName}`;
+    
+        let error = ejs.renderFile(filePath, data, {}, (e, content) => {
+            if (e) return e;
+            const mailOptions = {
+                from: SENDER_EMAIL_ADDRESS,
+                to: data.email,
+                subject: TEMPLATES[data.template].subject,
+                html: content,
+            };
+            smtpTransport.sendMail(mailOptions, (err, info) => {
+                if (err) reject(err);
+                resolve(info)
+            });
+        });
+    
+        if(error) reject(error);
+    })
+}
 
-    console.log(error)
-};
 module.exports = Mailing;
