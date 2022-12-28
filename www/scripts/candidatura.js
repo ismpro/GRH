@@ -89,8 +89,8 @@ function makeModal(candidato) {
                 <div>
                     <p>Selecionar o tipo de teste:</p>
                     <select id="modalTeste">
-                        <option value="0">Informatico</option>
-                        <option value="1">Ingles</option>
+                        <option value="testeinformatica">Informatico</option>
+                        <option value="testeingles">Ingles</option>
                     </select>
                 </div>
                 <div>
@@ -222,7 +222,7 @@ function onSave() {
 
     console.log(dataToSend);
 
-    api.post("/")
+    api.post("/candidatos/alterStatus", dataToSend).then( res=> console.log(res.data))
 }
 
 window.onload = function () {

@@ -2,27 +2,42 @@ let questions = [1,4,1,1,4,2,1,4,1,1];
 
 let pontuação = 0;
 
+const api = axios.create({
+    baseURL: window.location.origin,
+    withCredentials: true,
+});
+
+let submited = false;
+
 function clickButton() {
 
-    let con = true;
-    pontuação = 0;
+    if (!submited) {
+        let con = true;
+        pontuação = 0;
 
-    if(!checkIfAllAnswer()) {
-        con = confirm("Não respondeu a todas as perguntas. Tem a certeza que quer continuar?")
-    }
-
-    if(con) {
-        for (let index = 0; index < questions.length; index++) {
-            var checkboxes = document.getElementsByName("question-" + (index + 1));
-            let answer = Array.from(checkboxes).findIndex(input=> input.checked);
-            if((answer + 1) === questions[index]) pontuação++;
+        if (!checkIfAllAnswer()) {
+            con = confirm("Não respondeu a todas as perguntas. Tem a certeza que quer continuar?")
         }
 
-        let div = document.getElementById("mainTeste");
-        div.innerHTML = `<br/><p>A sua pontuação foi de ${pontuação}/10</p><p>Pode fechar esta janela agora</p>`;
+        if (con) {
+            for (let index = 0; index < questions.length; index++) {
+                var checkboxes = document.getElementsByName("question-" + (index + 1));
+                let answer = Array.from(checkboxes).findIndex(input => input.checked);
+                if ((answer + 1) === questions[index]) pontuação++;
+            }
+
+            submited = true;
+            
+            const id = new URLSearchParams(window.location.href).get(window.location.origin + window.location.pathname + "?id");
+
+            api.post("/testes", { id: id, score: pontuação }).then(res => {
+                if (res.data) {
+                    let div = document.getElementById("mainTeste");
+                    div.innerHTML = `<br/><p>A sua pontuação foi de ${pontuação}/10</p><p>Pode fechar esta janela agora</p>`;
+                }
+            })
+        }
     }
-    
-    console.log(pontuação);
 }
 
 function checkIfAllAnswer() {

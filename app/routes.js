@@ -5,6 +5,8 @@ module.exports = function (app, Mailing) {
     /* app.get('/', function (req, res) {
         res.status(200).send('<h1>Hello World</h1>');
     }) */
+    app.get('/testes', require('../routes/testes/get')())
+    app.post('/testes', require('../routes/testes/submit')())
 
     //Funcoes
     app.get('/funcoes', require('../routes/funcoes/all')())

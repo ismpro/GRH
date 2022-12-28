@@ -10,7 +10,8 @@
   "nodemonConfig": {
     "ignore": [
       "www/*"
-    ]
+    ],
+    "delay": 5000
   },
   "keywords": [
     "grh"
