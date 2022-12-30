@@ -26,8 +26,8 @@ function buildDom() {
         let tr = document.createElement("tr");
 
         tr.innerHTML =
-            `<td><a href="/candidatura?id=${teste.candidato}">${teste.candidato}</a></td>
-            <td>TODO</td>
+            `<td><a href="/candidatura?id=${teste.candidato._id}">${teste.candidato.nome}</a></td>
+            <td>${teste.candidato.vaga.titulo}</td>
             <td>${typeEnum[teste.type]}</td>
             <td>${teste.schedule.local}</td>
             <td>${(new Date(teste.schedule.date)).toLocaleString()}</td>`;

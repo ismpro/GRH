@@ -14,7 +14,7 @@ module.exports = function () {
         }
         Candidato.findById(id, function (err, candidato) {
             if (!err) {
-                res.status(200).send(candid0ato);
+                res.status(200).send(candidato);
             } else {
                 console.log(err);
                 res.status(500).send(err);

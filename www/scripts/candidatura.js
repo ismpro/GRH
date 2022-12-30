@@ -15,7 +15,7 @@ function buildDom() {
 
         tr.innerHTML =
             `<td>${candidato.nome}</td>
-        <td>${candidato.vaga}</td>
+        <td>${candidato.vaga.titulo}</td>
         <td>${candidato.type}</td>
         <td>${candidato.createdAt.toLocaleString().split(',')[0]}</td>`;
 
@@ -60,7 +60,7 @@ function makeModal(candidato) {
     modalInfo.innerHTML = `
         <p>Nome: ${candidato.nome}</p>
         <p>Tipo: ${candidato.type}</p>
-        <a href="#">Funcao: ${candidato.vaga}</a>
+        <p>Funcao: <a href="/funcao?id=${candidato.vaga._id}">${candidato.vaga.titulo}</a></p>
         <p>Começado: ${candidato.createdAt.toLocaleString().split(',')[0]}</p>
         <p>Email: ${candidato.email}</p>
         <p>Telefone: ${candidato.telefone}</p>
