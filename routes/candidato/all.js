@@ -5,7 +5,6 @@ const Funcao = require('../../models/Funcao');
 const getPosition = async function (position) {
     try {
         let funcao = await Funcao.findById(position);
-        console.log(funcao)
         return funcao;
     } catch (error) {
         console.log(error)
