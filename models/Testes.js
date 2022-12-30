@@ -4,15 +4,14 @@ const TesteSchema = new Schema({
   candidato: { type: Schema.Types.ObjectId, ref: 'Candidato' },
   type: String,
   schedule: {
-    data: Date,
-    hora: String,
+    date: Date,
     local: String,
   },
   score: Number,
   doneWhen: Date,
   status: {
     type: String,
-    enum: ['undone', 'done', 'expired'],
+    enum: ['undone', 'done', 'expired', 'cancel'],
     default: 'undone'
   }
 }, { timestamps: true });

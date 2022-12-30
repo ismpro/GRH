@@ -8,13 +8,11 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
-    <link rel="stylesheet" href="styles/Google-Style-Text-Input.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/bs-init.js"></script>
     <script src="scripts/theme.js"></script>
-    <script src="scripts/candidatura.js"></script>
+    <script src="scripts/entrevista.js"></script>
 </head>
 
 <body id="page-top">
@@ -22,28 +20,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Candidatura</h4>
+                    <h4 class="modal-title">Entrevista</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="modalInfo">
-                    </div>
-                    <hr style="border-top: 3px solid #bbb;">
-                    <div>
-                        <div class="x-dropdown dropdown">
-                            <div class="text-start x-drop-btn" aria-expanded="false" data-bs-toggle="dropdown">
-                                <span id="modalDropdownTitle" >Escolher Decisão</span><i class="material-icons">keyboard_arrow_down</i>
-                            </div>
-                            <div id="modalDropdown" class="dropdown-menu" role="menu">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="modalMore">
-                    </div>
+                    <p>Insert the notes for this test:</p>
+                    <textarea style="width: 100%;" id="modalNotes" placeholder="Escreve notas sobre esta entrevista" rows="5"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                    <button onclick="javascript: onSave()" class="btn btn-primary" type="button">Save</button>
+                    <button class="btn btn-primary" type="button" onclick="javascript: onSave()">Save</button>
                 </div>
             </div>
         </div>
@@ -57,9 +43,9 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="candidatura.html"><i class="fas fa-table"></i><span>Candidaturas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/candidatura"><i class="fas fa-table"></i><span>Candidaturas</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="testes.html"><i class="fas fa-table"></i><span>Testes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="entrevista.html"><i class="fas fa-table"></i><span>Entrevistas</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="entrevista.html"><i class="fas fa-table"></i><span>Entrevistas</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -120,34 +106,46 @@
                 <div class="container-fluid">
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Candidaturas</p>
+                            <p class="text-primary m-0 fw-bold">Testes</p>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Candidato</th>
                                             <th>Position</th>
-                                            <th>Type</th>
-                                            <th>Start date</th>
+                                            <th>Local</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table">
+                                        <tr>
+                                            <td><a href="#">Alex</a></td>
+                                            <td>Accountant</td>
+                                            <td>Lisboa</td>
+                                            <td>2008/11/28 15:00</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-primary" type="button">Complete</button>
+                                                    <button class="btn btn-primary" type="button" style="margin-left: 0px;background: var(--bs-red);border-style: none;">Cancel</button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td><strong>Name</strong></td>
+                                            <td><strong>Candidato</strong></td>
                                             <td><strong>Position</strong></td>
-                                            <td><strong>Type</strong></td>
-                                            <td><strong>Start date</strong></td>
+                                            <td><strong>Local</strong></td>
+                                            <td><strong>Date</strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+                                    <p id="dataTable_info-1" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
                                 </div>
                                 <div class="col-md-6">
                                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">

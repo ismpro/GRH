@@ -96,6 +96,18 @@ db.once('open', function () {
         console.log(chalk.green(`\n  Server Listing on: ${server.address().address === '::' ? 'localhost' : server.address().address}:${server.address().port}`))
     })
 
+    /* const entrevista = require("./models/Entrevista")
+
+    let ent = new entrevista();
+
+    ent.candidato = "63a9cdf5e24b1409eff7e3c6";
+    ent.date = new Date(2023, 1,25,16,30);
+    ent.local = "Lisboa";
+    ent.notes = "";
+    ent.status = "undone";
+
+    ent.save(); */
+
     /* 
         const can = require("./models/Candidato")
 

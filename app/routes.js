@@ -2,11 +2,24 @@ const path = require('path');
 
 module.exports = function (app, Mailing) {
 
-    /* app.get('/', function (req, res) {
+    app.get('/', function (req, res) {
         res.status(200).send('<h1>Hello World</h1>');
-    }) */
-    app.get('/testes', require('../routes/testes/get')())
+    })
+
+    app.get('/candidatura', function (req, res) {
+        res.status(200).sendFile(path.join(global.appRoot, "www", "candidatura.html"));
+    })
+
+    //Testes
+    app.get('/testes', require('../routes/testes/all')())
+    app.get('/teste', require('../routes/testes/get')())
     app.post('/testes', require('../routes/testes/submit')())
+    app.post('/testes/cancel', require('../routes/testes/cancel')())
+
+    //Entrevistas
+    app.get('/entrevistas', require('../routes/entrevista/all')())
+    app.post('/entrevistas', require('../routes/entrevista/submit')())
+    app.post('/entrevistas/cancel', require('../routes/entrevista/cancel')())
 
     //Funcoes
     app.get('/funcoes', require('../routes/funcoes/all')())

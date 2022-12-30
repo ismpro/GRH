@@ -18,7 +18,7 @@ const CandidatoSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
+    enum: ['aprovado', 'reprovado','triagem', 'teste'],
     default: 'created'
   },
   vaga: { type: Schema.Types.ObjectId, ref: 'Funcao' },

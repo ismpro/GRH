@@ -8,6 +8,8 @@ let data = [];
 function buildDom() {
     let table = document.getElementById("table");
 
+    table.innerHTML = "";
+
     for (const candidato of data) {
         let tr = document.createElement("tr");
 
@@ -19,17 +21,23 @@ function buildDom() {
 
         //<td><button class="btn btn-primary" type="button">Button</button></td>
         let td = document.createElement("td");
-        let button = document.createElement("button");
-        button.type = "button";
-        button.className = "btn btn-primary";
-        button.innerText = "Button";
-        button.setAttribute("data-bs-toggle", "modal");
-        button.setAttribute("data-bs-target", "#modal1");
-        button.onclick = function () {
-            makeModal(candidato);
-        }
 
-        td.appendChild(button);
+        if(!['aprovado', 'reprovado'].includes(candidato.status)) {
+            let button = document.createElement("button");
+            button.type = "button";
+            button.className = "btn btn-primary";
+            button.innerText = "Button";
+            button.setAttribute("data-bs-toggle", "modal");
+            button.setAttribute("data-bs-target", "#modal1");
+            button.onclick = function () {
+                makeModal(candidato);
+            }
+    
+            td.appendChild(button);
+        } else {
+            td.innerText = `Candidato ${candidato.status === "aprovado" ? "Aprovado" : "Reprovado"}`
+        }
+         
         tr.appendChild(td);
         table.appendChild(tr);
     }
@@ -64,28 +72,30 @@ function makeModal(candidato) {
     modalDropdownTitle.innerText = "Escolher proximo passo";
     modalDropdown.innerHTML = "";
 
-    switch (candidato.status) {
-        case "triagem":
-            let item1 = document.createElement("button");
-            let item2 = document.createElement("button");
-            let item3 = document.createElement("button");
+    let item1 = document.createElement("button");
+    let item2 = document.createElement("button");
+    let item4 = document.createElement("button");
+    let item5 = document.createElement("button");
 
-            item1.className = "dropdown-item";
-            item2.className = "dropdown-item";
-            item3.className = "dropdown-item";
+    item1.className = "dropdown-item";
+    item2.className = "dropdown-item";
+    item4.className = "dropdown-item";
+    item5.className = "dropdown-item";
 
-            item1.role = "presentation";
-            item2.role = "presentation";
-            item3.role = "presentation";
+    item1.role = "presentation";
+    item2.role = "presentation";
+    item4.role = "presentation";
+    item5.role = "presentation";
 
-            item1.innerText = "Marcar teste";
-            item2.innerText = "Marcar entrevista";
-            item3.innerText = "Passar para decisão";
+    item1.innerText = "Marcar teste";
+    item2.innerText = "Marcar entrevista";
+    item4.innerText = "Aprovar";
+    item5.innerText = "Reprovar";
 
-            item1.onclick = () => {
-                modalDropdownTitle.innerText = "Marcar teste";
+    item1.onclick = () => {
+        modalDropdownTitle.innerText = "Marcar teste";
 
-                modalMore.innerHTML = `
+        modalMore.innerHTML = `
                 <div>
                     <p>Selecionar o tipo de teste:</p>
                     <select id="modalTeste">
@@ -106,12 +116,13 @@ function makeModal(candidato) {
                     <input id="modalTime" type="time">
                 </div>
                 `
-                modalSavetype = "teste";
-            }
-            item2.onclick = () => {
-                modalDropdownTitle.innerText = "Marcar entrevista";
+        modalSavetype = "teste";
+    }
 
-                modalMore.innerHTML = `
+    item2.onclick = () => {
+        modalDropdownTitle.innerText = "Marcar entrevista";
+
+        modalMore.innerHTML = `
                 <div>
                     <div class="group">      
                         <input id="modalLocal" type="text" required>
@@ -125,49 +136,23 @@ function makeModal(candidato) {
                     <input id="modalTime" type="time">
                 </div>
                 `
-                modalSavetype = "entrevista";
-            }
-            item3.onclick = () => {
-                modalDropdownTitle.innerText = "Passar para decisão";
-                modalMore.innerHTML = "";
-                modalSavetype = "decisao";
-            }
-            modalDropdown.appendChild(item1);
-            modalDropdown.appendChild(item2);
-            modalDropdown.appendChild(item3);
-            break;
-        case "teste":
-        case "entrevista":
-            console.log("Not Implemented")
-            break;
-        case "decisao":
-            let item4 = document.createElement("button");
-            let item5 = document.createElement("button");
-
-            item4.className = "dropdown-item";
-            item5.className = "dropdown-item";
-
-            item4.role = "presentation";
-            item5.role = "presentation";
-
-            item4.innerText = "Aprovar";
-            item5.innerText = "Reprovar";
-
-            item4.onclick = () => {
-                modalDropdownTitle.innerText = "Aprovar";
-                modalSavetype = "aprovar";
-            }
-
-            item5.onclick = () => {
-                modalDropdownTitle.innerText = "Reprovar";
-                modalSavetype = "reprovar";
-            }
-            modalDropdown.appendChild(item4);
-            modalDropdown.appendChild(item5);
-            break;
-        default:
-            console.log("No status")
+        modalSavetype = "entrevista";
     }
+
+    item4.onclick = () => {
+        modalDropdownTitle.innerText = "Aprovar";
+        modalSavetype = "aprovar";
+    }
+
+    item5.onclick = () => {
+        modalDropdownTitle.innerText = "Reprovar";
+        modalSavetype = "reprovar";
+    }
+
+    modalDropdown.appendChild(item4);
+    modalDropdown.appendChild(item5);
+    modalDropdown.appendChild(item1);
+    modalDropdown.appendChild(item2);
 
     {/* <a class="dropdown-item" role="presentation" href="#">Aprovar</a>
         <a class="dropdown-item" role="presentation" href="#">Reprovar</a>
@@ -182,8 +167,6 @@ function onSave() {
     let modalLocal = document.getElementById("modalLocal");
     let modalDate = document.getElementById("modalDate");
     let modalTime = document.getElementById("modalTime");
-
-    console.log(modalLocal)
 
     switch (modalSavetype) {
         case "aprovar":
@@ -203,8 +186,7 @@ function onSave() {
                 type: "entrevista",
                 id: modalSaveId,
                 local: modalLocal.value,
-                date: modalDate.value,
-                time: modalTime.value
+                date: transformDate(modalDate, modalTime)
             }
             break;
         case "teste":
@@ -214,15 +196,21 @@ function onSave() {
                 id: modalSaveId,
                 teste: modalTeste.value,
                 local: modalLocal.value,
-                date: modalDate.value,
-                time: modalTime.value
+                date: transformDate(modalDate, modalTime)
             }
             break;
     }
 
     console.log(dataToSend);
 
-    api.post("/candidatos/alterStatus", dataToSend).then( res=> console.log(res.data))
+    api.post("/candidatos/alterStatus", dataToSend).then(res => console.log(res.data))
+}
+
+function transformDate(modalDate, modalTime) {
+    const [year, month, day] = modalDate.value.split('-');
+    const [hours, minutes] = modalTime.value.split(':');
+
+    return new Date(+year, +month - 1, +day, +hours, +minutes);
 }
 
 window.onload = function () {
@@ -231,6 +219,19 @@ window.onload = function () {
             data = res.data.map((candidato, index) => ({ ...candidato, id: index, createdAt: new Date(candidato.createdAt) }));
             console.log(data)
             buildDom();
+
+
+            const query = new URLSearchParams(window.location.href);
+            if(query.has(window.location.origin + window.location.pathname + "?id")) {
+                let id = query.get(window.location.origin + window.location.pathname + "?id")
+                let candidato = data.find((can => can._id = id));
+                if(candidato) {
+                    makeModal(candidato);
+
+                    let myModal = new bootstrap.Modal(document.getElementById('modal1'), {});
+                    myModal.show();
+                }
+            }
         }
     });
 }

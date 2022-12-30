@@ -32,7 +32,7 @@ module.exports = function () {
             return;
         } 
 
-        if(teste.schedule.data.getTime() > Date.now()) {
+        if(teste.schedule.date.getTime() > Date.now()) {
             teste.status = "expired";
             teste.save()
             res.status(200).sendFile(path.join(global.appRoot, 'www', `testeinvalid.html`))
