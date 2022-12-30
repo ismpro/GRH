@@ -1,6 +1,20 @@
-<p>Teste mail <%= email %></p>
-<p>
-  Este um mail de teste
-  <br />
-</p>
-<p>Link: <%= link %></p>
+<p>Prezado(a) <%= nome %>,</p>
+
+<p>Espero que este e-mail o encontre bem.</p>
+
+<p>Gostaríamos de convidá-lo(a) para participar de um teste de seleção para o cargo de <%= cargo %>.</p>
+
+<% if (local === "online") { %>
+<p> O teste de <%= tipo %> será realizado online.</p>
+<p> Link de acesso: <a href="<%=link %>"><%=link %></a></p>
+<p> Tens até <%= data %> e às <%= hora %> para concluir o teste.</p>
+<% } else { %>
+<p>O teste de <%= tipo %> será realizado no nosso escritorio, localizada em <%= local %>, no dia <%= data %> às <%= hora %>.</p>
+<% } %>
+<p>Caso precise de mais informações sobre o teste, por favor não hesite em entrar em contato conosco.</p>
+
+<p>Agradecemos a sua atenção e esperamos vê-lo(a) em breve.</p>
+
+<p>Atenciosamente,<br>
+<%= manager %><br>
+RH</p>

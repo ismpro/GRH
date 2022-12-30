@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+console.clear();
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
