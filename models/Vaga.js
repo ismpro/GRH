@@ -5,7 +5,8 @@ const VagaSchema = new Schema({
     descricao: String,
     requisitos: String,
     validade: Date,
-    tipoVaga: Boolean
+    tipoVaga: Boolean,
+    escritorio: String
 }, { timestamps: true });
 
 module.exports = model('Vaga', VagaSchema);
