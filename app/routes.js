@@ -25,6 +25,11 @@ module.exports = function (app, Mailing) {
     app.get('/funcoes', require('../routes/funcoes/all')())
     app.get('/funcoes/:id', require('../routes/funcoes/byId')())
 
+    //Vagas
+    app.get('/vagas', require('../routes/vagas/all')())
+    app.get('/vagas/:id', require('../routes/vagas/byId')())
+    app.post('/vagas/create', require('../routes/vagas/create')())
+
     //Candidatos
     app.get('/candidatos', require('../routes/candidato/all')())
     app.get('/candidatos/:id', require('../routes/candidato/byId')())
