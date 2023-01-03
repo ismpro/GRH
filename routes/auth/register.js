@@ -25,7 +25,7 @@ module.exports = function () {
 
             let newUser = new User();
             newUser.email = data.email;
-            newUser.username = data.username;
+            newUser.nome = data.firstName + " " + data.lastName;
             newUser.type = data.type;
             newUser.password = data.password;
             newUser.atribuitesessionid = 'expired';

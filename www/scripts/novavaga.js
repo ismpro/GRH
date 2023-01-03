@@ -4,7 +4,7 @@ const api = axios.create({
 });
 
 function onCreate() {
-    let title = document.getElementById("titulo").value;
+    let titulo = document.getElementById("titulo").value;
     let descricao = document.getElementById("descricao").value;
     let tipoVaga = document.getElementById("formCheck-2").checked;
     let validade = document.getElementById("validade").value;
@@ -12,7 +12,7 @@ function onCreate() {
     let escritorio = document.getElementById("escritorio");
     let selectedOffice = escritorio.options[escritorio.selectedIndex].text;
 
-    let dataToSend = { title, descricao, selectedOffice, tipoVaga, validade, requisitos};
+    let dataToSend = { titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
 
     api.post("/vagas/create", dataToSend).then(res => {
         console.log(res.data);
