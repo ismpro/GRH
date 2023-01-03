@@ -27,7 +27,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="index.html"><i
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i
                                 class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="candidatura.html"><i
                                 class="fas fa-table"></i><span>Candidaturas</span></a></li>
@@ -35,8 +35,7 @@
                                 class="fas fa-table"></i><span>Testes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="entrevista.html"><i
                                 class="fas fa-table"></i><span>Entrevistas</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="nova_vaga.html"><i
-                                class="fas fa-search"></i><span>Vagas</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="vagas.html"><i class="fas fa-table"></i><span>Vagas</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
                         id="sidebarToggle" type="button"></button></div>
@@ -146,11 +145,11 @@
                                 <div class="row" id="formulario">
                                     <div class="col-md-6" id="coluna1">
                                         <label class="form-label">Título</label>
-                                        <input class="form-control" type="text" required="" id="titulo">
+                                        <input class="form-control" type="text" required="" id="titulo" data-group="formFields">
                                         <label class="form-label">Descrição</label>
-                                        <textarea class="form-control" required="" id="descricao"></textarea>
+                                        <textarea class="form-control" required="" id="descricao" data-group="formFields"></textarea>
                                         <label class="form-label">Escritório</label>
-                                        <select class="form-select" id="escritorio">
+                                        <select class="form-select" id="escritorio" data-group="formFields">
                                             <option value="Lisboa" selected="">Lisboa</option>
                                             <option value="Porto">Porto</option>
                                             <option value="Teletrabalho">Teletrabalho</option>
@@ -158,14 +157,14 @@
                                     </div>
                                     <div class="col-md-6" id="coluna2">
                                         <label class="form-label">Validade</label>
-                                        <input class="form-control" type="date" required="" id="validade">
+                                        <input class="form-control" type="date" required="" id="validade" data-group="formFields">
                                         <label class="form-label">Requisitos</label>
-                                        <textarea class="form-control" required="" id="requisitos"></textarea>
-                                        <div class="form-check" style="margin-top: 15px;">
+                                        <textarea class="form-control" required="" id="requisitos" data-group="formFields"></textarea>
+                                        <div class="form-check" style="margin-top: 15px;" id="checkbox">
                                             <input class="form-check-input" type="checkbox" id="formCheck-2">
                                             <label class="form-check-label" for="formCheck-2">Vaga Interna</label>
                                         </div>
-                                        <button class="btn btn-primary" type="button" onclick="javascript: onCreate()"
+                                        <button class="btn btn-primary" type="button"
                                             id="btnCreate"
                                             style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;margin-left: 85%;">Criar</button>
                                     </div>
