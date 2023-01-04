@@ -3,23 +3,27 @@ const api = axios.create({
     withCredentials: true,
 });
 
+let data = [];
+
 function onCreate() {
-    let titulo = document.getElementById("titulo").value;
-    let descricao = document.getElementById("descricao").value;
-    let tipoVaga = document.getElementById("formCheck-2").checked;
-    let validade = document.getElementById("validade").value;
-    let requisitos = document.getElementById("requisitos").value;
-    let escritorio = document.getElementById("escritorio");
-    let selectedOffice = escritorio.options[escritorio.selectedIndex].text;
+    let nome = document.getElementById("nome").value,
+        genero = document.getElementById("genero"),
+        selectedGenero = genero.options[genero.selectedIndex].text,
+        email = document.getElementById("email").value,
+        telefone = document.getElementById("telefone").value,
+        salario = document.getElementById("salario").value,
+        escolaridade = document.getElementById("escolaridade"),
+        selectedEscolaridade = escolaridade.options[escolaridade.selectedIndex].text,
+        habilidades = document.getElementById("habilidades").value,
+        vaga = data._id,
+        dataToSend = { nome, selectedGenero, email, telefone, salario, selectedEscolaridade, vaga, habilidades};
 
-    let dataToSend = { titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
-
-    api.post("/vagas/create", dataToSend).then(res => {
+    api.post("/candidatos/create", dataToSend).then(res => {
         console.log(res.data);
     })
 }
 
-function fillFields (data) {
+/*function fillFields (data) {
 
     let title = document.getElementById("titulo"),
         descricao = document.getElementById("descricao"),
@@ -43,7 +47,7 @@ function fillFields (data) {
         });
 
 
-}
+}*/
 
 window.onload = function () {
 
@@ -53,23 +57,16 @@ window.onload = function () {
     if(params) {
 
         api.get("/vagas/" + params.get("id")).then((response) => {
-                let data = response.data;
-                fillFields(data);
+                data = response.data;
+                //fillFields(data);
 
-                buttonCreate.innerText = "Candidatar-me";
+                buttonCreate.innerText = "Submeter Candidatura";
                 buttonCreate.addEventListener("click", () => {
-                    var params = new URLSearchParams();
-                    params.append("id", data._id);
-
-                window.location.href = "nova_candidatura.html?" + params.toString();
+                    onCreate();
                 });
 
             })
             .catch((err) => console.log(err));
 
-    } else {
-        buttonCreate.addEventListener("click", () => {
-            onCreate();
-        });;
     }
 }

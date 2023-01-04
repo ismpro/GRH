@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Criar Vaga</title>
+    <title>Criar Candidatura</title>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="scripts/bs-init.js"></script>
     <script src="scripts/theme.js"></script>
-    <script src="scripts/novavaga.js"></script>
+    <script src="scripts/novaCandidatura.js"></script>
 </head>
 
 <body id="page-top">
@@ -122,7 +122,7 @@
                 <div class="container-fluid">
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Nova Vaga</p>
+                            <p class="text-primary m-0 fw-bold">Nova Candidatura</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid"
@@ -144,26 +144,31 @@
                             <form>
                                 <div class="row" id="formulario">
                                     <div class="col-md-6" id="coluna1">
-                                        <label class="form-label">Título</label>
-                                        <input class="form-control" type="text" required="" id="titulo" data-group="formFields">
-                                        <label class="form-label">Descrição</label>
-                                        <textarea class="form-control" required="" id="descricao" data-group="formFields"></textarea>
-                                        <label class="form-label">Escritório</label>
-                                        <select class="form-select" id="escritorio" data-group="formFields">
-                                            <option value="Lisboa" selected="">Lisboa</option>
-                                            <option value="Porto">Porto</option>
-                                            <option value="Teletrabalho">Teletrabalho</option>
+                                        <label class="form-label">Nome</label>
+                                        <input class="form-control" type="text" required="" id="nome" data-group="formFields">
+                                        <label class="form-label">Genero</label>
+                                        <select class="form-select" id="genero" data-group="formFields">
+                                            <option value="Masculino" selected="">Masculino</option>
+                                            <option value="Feminino">Feminino</option>
                                         </select>
+                                        <label class="form-label">Email</label>
+                                        <input class="form-control" type="text" required="" id="email" data-group="formFields">
+                                        <label class="form-label">Telefone</label>
+                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields">
                                     </div>
                                     <div class="col-md-6" id="coluna2">
-                                        <label class="form-label">Validade</label>
-                                        <input class="form-control" type="date" required="" id="validade" data-group="formFields">
-                                        <label class="form-label">Requisitos</label>
-                                        <textarea class="form-control" required="" id="requisitos" data-group="formFields"></textarea>
-                                        <div class="form-check" style="margin-top: 15px;" id="checkbox">
-                                            <input class="form-check-input" type="checkbox" id="formCheck-2">
-                                            <label class="form-check-label" for="formCheck-2">Vaga Interna</label>
-                                        </div>
+                                        <label class="form-label">Telefone</label>
+                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields">
+                                        <label class="form-label">Salario Pretendido</label>
+                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields">
+                                        <label class="form-label">Escolaridade</label>
+                                        <select class="form-select" id="escolaridade" data-group="formFields">
+                                            <option value="Secundario" selected="">Secundario</option>
+                                            <option value="Licenciado">Licenciado</option>
+                                            <option value="Mestrado">Mestrado</option>
+                                        </select>
+                                        <label class="form-label">Habilidades</label>
+                                        <textarea class="form-control" required="" id="habilidades" data-group="formFields"></textarea>
                                         <button class="btn btn-primary" type="button"
                                             id="btnCreate"
                                             style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;margin-left: 85%;">Criar</button>

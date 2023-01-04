@@ -10,42 +10,66 @@ function buildDom() {
 
     tableBody.innerHTML = "";
 
+    /*tableBody.addEventListener('click', (event) => {
+        if (event.target.className === 'button') {
+            console.log('Button was clicked');
+
+            let params = new URLSearchParams();
+                params.append("id", vaga._id);
+
+                window.location.href = "nova_candidatura.html?" + params.toString();
+
+        } else {
+            console.log('Row was clicked');
+
+            let params = new URLSearchParams();
+            params.append("id", vaga._id);
+
+            window.location.href = "nova_vaga.html?" + params.toString();
+        }
+    });*/
+
     for (const vaga of data) {
-        let tr = document.createElement("tr");
+        let tr = document.createElement("tr"),
+            objectDate = new Date(vaga.validade), 
+            month = ((objectDate.getMonth() + 1) < 9) ? ("0" + (objectDate.getMonth() + 1)) : (objectDate.getMonth() + 1);
 
         tr.innerHTML =
-            `<td>${vaga.funcao}</td>
-        <td>${vaga.validade}</td>
+            `<td>${vaga.titulo}</td>
+        <td>${objectDate.getFullYear() + "-" + month + "-" + objectDate.getDate()}</td>
         <td>${vaga.escritorio}</td>`;
 
-        //<td><button class="btn btn-primary" type="button">Button</button></td>
         let td = document.createElement("td");
+
+        let button = document.createElement("button");
+            button.id = "buttonCandidatar";
+            button.type = "button";
+            button.className = "btn btn-primary";
+            button.innerText = "Candidatar-me";
+            button.setAttribute("data-bs-toggle", "modal");
+            button.setAttribute("data-bs-target", "#modal1");
+            button.onclick = function () {
+                var params = new URLSearchParams();
+                params.append("id", vaga._id);
+
+                window.location.href = "nova_candidatura.html?" + params.toString();
+            }
+    
+        td.appendChild(button);
          
         tr.appendChild(td);
 
         tr.addEventListener("click", (oEvent) => {
 
-            var id = data[oEvent.pointerId - 1]._id;
+            var params = new URLSearchParams();
+            params.append("id", vaga._id);
 
-            api.get("/vagas/" + id).then((response) => {
-                var params = new URLSearchParams();
-                params.append("id", response.data._id);
-
-                window.location.href = "nova_vaga.html?" + params.toString();
-            })
-            .catch((err) => console.log(err));
+            window.location.href = "nova_vaga.html?" + params.toString();
 
         });
 
         tableBody.appendChild(tr);
     }
-}
-
-function transformDate(modalDate, modalTime) {
-    const [year, month, day] = modalDate.value.split('-');
-    const [hours, minutes] = modalTime.value.split(':');
-
-    return new Date(+year, +month - 1, +day, +hours, +minutes);
 }
 
 window.onload = function () {
