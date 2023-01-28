@@ -13,9 +13,9 @@ module.exports = function () {
                     res.status(500).send(err.message)
                 } else {
                     if (user && user.atribuitesessionid === req.session.sessionId) {
-                        res.status(200).send(true)
+                        res.status(200).send({isAuth: true, type: user.type, name: user.nome})
                     } else {
-                        res.status(200).send(false)
+                        res.status(200).send({isAuth: false})
                     }
                 }
             })

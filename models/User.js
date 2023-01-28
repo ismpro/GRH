@@ -7,8 +7,8 @@ const userSchema = new Schema({
   nome: String,
   type: {
     type: String,
-    enum: ['candidato', 'trabalhador', 'manager'],
-    default: 'candidato'
+    enum: ['trabalhador', 'manager'],
+    default: 'manager'
   },
   /**
     * The id of the user session

@@ -39,7 +39,7 @@ module.exports = function () {
             let sessionSave = req.session.save();
 
             Promise.all([userSave, sessionSave]).then(() => {
-                res.status(220).send(true);
+                res.status(200).send(user.type);
             }).catch(() => {
                 res.status(500).send('Error on server! Try again later!');
             })
