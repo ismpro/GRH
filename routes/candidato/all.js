@@ -1,16 +1,7 @@
 
 const Candidato = require('../../models/Candidato');
-const Funcao = require('../../models/Funcao');
-
-const getPosition = async function (position) {
-    try {
-        let funcao = await Funcao.findById(position);
-        return funcao;
-    } catch (error) {
-        console.log(error)
-    }
-    
-}
+const Vaga = require('../../models/Vaga');
+const User = require('../../models/User');
 
 /**
  * Route that return all roles
@@ -18,20 +9,25 @@ const getPosition = async function (position) {
  * @returns {Function}
  */
 module.exports = function () {
-    return function (req, res) {
-        Candidato.find({}, async function (err, candidatos) {
-            if (!err) {
+    return async function (req, res) {
 
-                for (let index = 0; index < candidatos.length; index++) {
-                    const candidato = candidatos[index];
-                    candidatos[index].vaga = await getPosition(candidato.vaga);
+        let output = [];
+
+        try {
+            let manager = await User.findById(req.session.userid);
+            let vagas = await Vaga.find({ manager: manager._id });
+
+            for (const vaga of vagas) {
+                let candidatos = await Candidato.find({ vaga: vaga._id });
+
+                for (const candidato of candidatos) {
+                    candidato._doc.funcao = vaga;
+                    output.push(candidato)
                 }
-
-                res.status(200).send(candidatos)
-            } else {
-                console.log(err)
-                res.status(500).send(err)
             }
-        })
+            res.send(output)
+        } catch (error) {
+            res.status(500).send(error)
+        }
     }
 }

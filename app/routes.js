@@ -21,10 +21,6 @@ module.exports = function (app, Mailing) {
     app.post('/entrevistas', require('../routes/entrevista/submit')())
     app.post('/entrevistas/cancel', require('../routes/entrevista/cancel')())
 
-    //Funcoes
-    app.get('/funcoes', require('../routes/funcoes/all')())
-    app.get('/funcoes/:id', require('../routes/funcoes/byId')())
-
     //Vagas
     app.get('/vagas', require('../routes/vagas/all')())
     app.get('/vagas/:id', require('../routes/vagas/byId')())
@@ -32,7 +28,6 @@ module.exports = function (app, Mailing) {
 
     //Candidatos
     app.get('/candidatos', require('../routes/candidato/all')())
-    app.get('/candidatos/:id', require('../routes/candidato/byId')())
     app.post('/candidatos/create', require('../routes/candidato/create')())
     app.post('/candidatos/alterStatus', require('../routes/candidato/alterStatus')(Mailing))
 

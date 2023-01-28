@@ -1,26 +1,23 @@
 const Testes = require('../../models/Testes');
 const Candidato = require('../../models/Candidato');
-const Funcao = require('../../models/Funcao');
+const Vaga = require('../../models/Vaga');
+const User = require('../../models/User');
 
-const getPosition = async function (position) {
-    try {
-        let funcao = await Funcao.findById(position);
-        return funcao;
-    } catch (error) {
-        console.log(error)
+const getCandidatos = async function (id) {
+    let output = [];
+
+    let manager = await User.findById(id);
+    let vagas = await Vaga.find({ manager: manager._id });
+
+    for (const vaga of vagas) {
+        let candidatos = await Candidato.find({ vaga: vaga._id });
+
+        for (const candidato of candidatos) {
+            candidato._doc.vaga = vaga;
+            output.push(candidato)
+        }
     }
-
-}
-
-const getCandidato = async function (id) {
-    try {
-        let candidato = await Candidato.findById(id);
-        candidato.vaga = await getPosition(candidato.vaga);
-        return candidato;
-    } catch (error) {
-        console.log(error)
-    }
-
+    return output
 }
 
 /**
@@ -29,20 +26,22 @@ const getCandidato = async function (id) {
  * @returns {Function}
  */
 module.exports = function () {
-    return function (req, res) {
-        Testes.find({}, async function (err, testes) {
-            if (!err) {
+    return async function (req, res) {
 
-                for (let index = 0; index < testes.length; index++) {
-                    const teste = testes[index];
-                    testes[index].candidato = await getCandidato(teste.candidato);
-                }
+        let output = []
 
-                res.status(200).send(testes)
-            } else {
-                console.log(err)
-                res.status(500).send(err)
+        let candidatos = await getCandidatos(req.session.userid);
+
+        for (const candidato of candidatos) {
+            let testes = await Testes.find({candidato: candidato._id});
+
+            for (const teste of testes) {
+                teste._doc.candidato = candidato;
+                output.push(teste)
             }
-        })
+        }
+
+        res.send(output)
+        
     }
 }

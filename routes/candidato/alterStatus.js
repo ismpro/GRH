@@ -1,6 +1,5 @@
 const Candidato = require('../../models/Candidato');
 const Testes = require('../../models/Testes');
-const Funcao = require('../../models/Funcao');
 const Entrevista = require('../../models/Entrevista');
 const User = require('../../models/User');
 const { formatDate } = require('../../app/functions')
@@ -16,7 +15,7 @@ const getUser = async function (user) {
 
 const getPosition = async function (position) {
     try {
-        let funcao = await Funcao.findById(position);
+        let funcao = await Vaga.findById(position);
         funcao.manager = await getUser(funcao.manager);
         return funcao;
     } catch (error) {

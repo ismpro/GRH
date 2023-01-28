@@ -21,7 +21,7 @@ const CandidatoSchema = new Schema({
     enum: ['aprovado', 'reprovado','triagem', 'teste'],
     default: 'created'
   },
-  vaga: { type: Schema.Types.ObjectId, ref: 'Funcao' },
+  vaga: { type: Schema.Types.ObjectId, ref: 'Vagas' },
 }, { timestamps: true });
 
 module.exports = model('Candidato', CandidatoSchema);

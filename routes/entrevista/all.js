@@ -1,26 +1,23 @@
 const Entrevista = require('../../models/Entrevista');
 const Candidato = require('../../models/Candidato');
-const Funcao = require('../../models/Funcao');
+const Vaga = require('../../models/Vaga');
+const User = require('../../models/User');
 
-const getPosition = async function (position) {
-    try {
-        let funcao = await Funcao.findById(position);
-        return funcao;
-    } catch (error) {
-        console.log(error)
+const getCandidatos = async function (id) {
+    let output = [];
+
+    let manager = await User.findById(id);
+    let vagas = await Vaga.find({ manager: manager._id });
+
+    for (const vaga of vagas) {
+        let candidatos = await Candidato.find({ vaga: vaga._id });
+
+        for (const candidato of candidatos) {
+            candidato._doc.vaga = vaga;
+            output.push(candidato)
+        }
     }
-
-}
-
-const getCandidato = async function (id) {
-    try {
-        let candidato = await Candidato.findById(id);
-        candidato.vaga = await getPosition(candidato.vaga);
-        return candidato;
-    } catch (error) {
-        console.log(error)
-    }
-
+    return output
 }
 
 /**
@@ -29,20 +26,20 @@ const getCandidato = async function (id) {
  * @returns {Function}
  */
 module.exports = function () {
-    return function (req, res) {
-        Entrevista.find({}, async function (err, entrevistas) {
-            if (!err) {
+    return async function (req, res) {
+        let output = []
 
-                for (let index = 0; index < entrevistas.length; index++) {
-                    const entrevista = entrevistas[index];
-                    entrevistas[index].candidato = await getCandidato(entrevista.candidato);
-                }
+        let candidatos = await getCandidatos(req.session.userid);
 
-                res.status(200).send(entrevistas)
-            } else {
-                console.log(err)
-                res.status(500).send(err)
+        for (const candidato of candidatos) {
+            let entrevistas = await Entrevista.find({candidato: candidato._id});
+
+            for (const entrevista of entrevistas) {
+                entrevista._doc.candidato = candidato;
+                output.push(entrevista)
             }
-        })
+        }
+
+        res.send(output)
     }
 }

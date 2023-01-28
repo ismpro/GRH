@@ -6,7 +6,8 @@ const VagaSchema = new Schema({
     requisitos: String,
     validade: Date,
     tipoVaga: Boolean,
-    escritorio: String
+    escritorio: String,
+    manager: { type: Schema.Types.ObjectId, ref: 'User' },
 }, { timestamps: true });
 
 module.exports = model('Vaga', VagaSchema);
