@@ -6,13 +6,8 @@ const api = axios.create({
 let data = [];
 let modalSaveId = "";
 
-function buildDom() {
-    let table = document.getElementById("table");
-
-    table.innerHTML = "";
-
-    for (const entrevista of data) {
-        let tr = document.createElement("tr");
+let dataController = tableMaker("table", (entrevista)=> {
+    let tr = document.createElement("tr");
 
         tr.innerHTML =
             `<td><a href="/candidatura?id=${entrevista.candidato._id}">${entrevista.candidato.nome}</a></td>
@@ -45,9 +40,7 @@ function buildDom() {
             buttoncancel.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
             buttoncancel.onclick = function () {
                 api.post("/entrevistas/cancel", { id: entrevista._id }).then(res => {
-                    console.log(res.data)
-                    entrevista.status = "cancel";
-                    buildDom();
+                    window.location.reload()
                 })
             }
 
@@ -77,9 +70,9 @@ function buildDom() {
         }
 
         tr.appendChild(td);
-        table.appendChild(tr);
-    }
-}
+
+    return tr;
+})
 
 function onSave() {
     let modalNotes = document.getElementById("modalNotes");
@@ -88,15 +81,7 @@ function onSave() {
     let dataToSend = { id: modalSaveId, notes };
 
     api.post("/entrevistas", dataToSend).then(res => {
-        console.log(res.data)
-
-        let index = data.findIndex(e => e._id === modalSaveId)
-        data[index].notes = notes;
-        data[index].status = "done";
-        buildDom();
-
-        let myModal = new bootstrap.Modal(document.getElementById('modal1'), {});
-        myModal.hide();
+        window.location.reload();
     })
 }
 
@@ -105,8 +90,7 @@ window.onload = function () {
     api.get('/entrevistas').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((entrevista, index) => ({ ...entrevista, id: index }));
-            console.log(data)
-            buildDom();
+            dataController.addData(data);
 
             /* const query = new URLSearchParams(window.location.href);
             if(query.has(window.location.origin + window.location.pathname + "?id")) {

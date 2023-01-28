@@ -3,45 +3,38 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [];
+let dataController = tableMaker("table", (candidato)=> {
+    let tr = document.createElement("tr");
 
-function buildDom() {
-    let table = document.getElementById("table");
+    tr.innerHTML =
+        `<td>${candidato.nome}</td>
+    <td>${candidato.funcao.titulo}</td>
+    <td>${candidato.type}</td>
+    <td>${candidato.createdAt.toLocaleString().split(',')[0]}</td>`;
 
-    table.innerHTML = "";
+    //<td><button class="btn btn-primary" type="button">Button</button></td>
+    let td = document.createElement("td");
 
-    for (const candidato of data) {
-        let tr = document.createElement("tr");
-
-        tr.innerHTML =
-            `<td>${candidato.nome}</td>
-        <td>${candidato.funcao.titulo}</td>
-        <td>${candidato.type}</td>
-        <td>${candidato.createdAt.toLocaleString().split(',')[0]}</td>`;
-
-        //<td><button class="btn btn-primary" type="button">Button</button></td>
-        let td = document.createElement("td");
-
-        if(!['aprovado', 'reprovado'].includes(candidato.status)) {
-            let button = document.createElement("button");
-            button.type = "button";
-            button.className = "btn btn-primary";
-            button.innerText = "Button";
-            button.setAttribute("data-bs-toggle", "modal");
-            button.setAttribute("data-bs-target", "#modal1");
-            button.onclick = function () {
-                makeModal(candidato);
-            }
-    
-            td.appendChild(button);
-        } else {
-            td.innerText = `Candidato ${candidato.status === "aprovado" ? "Aprovado" : "Reprovado"}`
+    if(!['aprovado', 'reprovado'].includes(candidato.status)) {
+        let button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn btn-primary";
+        button.innerText = "Button";
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("data-bs-target", "#modal1");
+        button.onclick = function () {
+            makeModal(candidato);
         }
-         
-        tr.appendChild(td);
-        table.appendChild(tr);
+
+        td.appendChild(button);
+    } else {
+        td.innerText = `Candidato ${candidato.status === "aprovado" ? "Aprovado" : "Reprovado"}`
     }
-}
+     
+    tr.appendChild(td);
+
+    return tr;
+})
 
 let modalSavetype = "";
 let modalSaveId = "";
@@ -216,11 +209,8 @@ function transformDate(modalDate, modalTime) {
 window.onload = function () {
     api.get('/candidatos').then(res => {
         if (typeof res.data === 'object') {
-            console.log(res.data)
             data = res.data.map((candidato, index) => ({ ...candidato, id: index, createdAt: new Date(candidato.createdAt) }));
-            console.log(data)
-            buildDom();
-
+            dataController.addData(data);
 
             const query = new URLSearchParams(window.location.href);
             if(query.has(window.location.origin + window.location.pathname + "?id")) {

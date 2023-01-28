@@ -17,80 +17,71 @@ const typeEnum = {
     'testeingles': 'Teste de Ingles'
 }
 
-function buildDom() {
-    let table = document.getElementById("table");
+let dataController = tableMaker("table", (teste)=> {
+    let tr = document.createElement("tr");
 
-    table.innerHTML = "";
+    tr.innerHTML =
+        `<td><a href="/candidatura?id=${teste.candidato._id}">${teste.candidato.nome}</a></td>
+        <td>${teste.candidato.vaga.titulo}</td>
+        <td>${typeEnum[teste.type]}</td>
+        <td>${teste.schedule.local}</td>
+        <td>${(new Date(teste.schedule.date)).toLocaleString()}</td>`;
 
-    for (const teste of data) {
-        let tr = document.createElement("tr");
+    let td = document.createElement("td");
 
-        tr.innerHTML =
-            `<td><a href="/candidatura?id=${teste.candidato._id}">${teste.candidato.nome}</a></td>
-            <td>${teste.candidato.vaga.titulo}</td>
-            <td>${typeEnum[teste.type]}</td>
-            <td>${teste.schedule.local}</td>
-            <td>${(new Date(teste.schedule.date)).toLocaleString()}</td>`;
+    if (teste.status === "undone") {
+        if (teste.schedule.local === "online") {
 
-        let td = document.createElement("td");
-
-        if (teste.status === "undone") {
-            if (teste.schedule.local === "online") {
-
-                let button = document.createElement("button");
-                button.type = "button";
-                button.className = "btn btn-primary";
-                button.innerText = "Cancel";
-                button.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
-                button.onclick = function () {
-                    api.post("/testes/cancel", { id: teste._id }).then(res => {
-                        console.log(res.data)
-                        teste.status = "cancel";
-                        buildDom();
-                    })
-                }
-
-                td.appendChild(button);
-            } else {
-                let div = document.createElement("div");
-                let buttoninsert = document.createElement("button");
-                let buttoncancel = document.createElement("button");
-
-                buttoninsert.type = "button";
-                buttoninsert.className = "btn btn-primary";
-                buttoninsert.innerText = "Insert";
-                buttoninsert.setAttribute("data-bs-toggle", "modal");
-                buttoninsert.setAttribute("data-bs-target", "#modal1");
-                buttoninsert.onclick = function () {
-                    let modalScore = document.getElementById("modalScore");
-                    modalScore.value = 0;
-                    modalSaveId = teste._id;
-                }
-
-                buttoncancel.type = "button";
-                buttoncancel.className = "btn btn-primary";
-                buttoncancel.innerText = "Cancel";
-                buttoncancel.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
-                buttoncancel.onclick = function () {
-                    api.post("/testes/cancel", { id: teste._id }).then(res => {
-                        console.log(res.data)
-                        teste.status = "cancel";
-                        buildDom();
-                    })
-                }
-
-                div.appendChild(buttoninsert);
-                div.appendChild(buttoncancel);
-                td.appendChild(div);
+            let button = document.createElement("button");
+            button.type = "button";
+            button.className = "btn btn-primary";
+            button.innerText = "Cancel";
+            button.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
+            button.onclick = function () {
+                api.post("/testes/cancel", { id: teste._id }).then(res => {
+                    window.location.reload()
+                })
             }
-        } else {
-            td.innerText = `Teste ${teste.status === "done" ?  teste.score + "/10" : statusEnum[teste.status]}`
-        }
 
-        tr.appendChild(td);
-        table.appendChild(tr);
+            td.appendChild(button);
+        } else {
+            let div = document.createElement("div");
+            let buttoninsert = document.createElement("button");
+            let buttoncancel = document.createElement("button");
+
+            buttoninsert.type = "button";
+            buttoninsert.className = "btn btn-primary";
+            buttoninsert.innerText = "Insert";
+            buttoninsert.setAttribute("data-bs-toggle", "modal");
+            buttoninsert.setAttribute("data-bs-target", "#modal1");
+            buttoninsert.onclick = function () {
+                let modalScore = document.getElementById("modalScore");
+                modalScore.value = 0;
+                modalSaveId = teste._id;
+            }
+
+            buttoncancel.type = "button";
+            buttoncancel.className = "btn btn-primary";
+            buttoncancel.innerText = "Cancel";
+            buttoncancel.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
+            buttoncancel.onclick = function () {
+                api.post("/testes/cancel", { id: teste._id }).then(res => {
+                    window.location.reload()
+                })
+            }
+
+            div.appendChild(buttoninsert);
+            div.appendChild(buttoncancel);
+            td.appendChild(div);
+        }
+    } else {
+        td.innerText = `Teste ${teste.status === "done" ?  teste.score + "/10" : statusEnum[teste.status]}`
     }
-}
+
+    tr.appendChild(td);
+
+    return tr;
+})
 
 function onSave() {
     let modalScore = document.getElementById("modalScore");
@@ -100,15 +91,7 @@ function onSave() {
         let dataToSend = { id: modalSaveId, score };
 
         api.post("/testes", dataToSend).then(res => {
-            console.log(res.data)
-
-            let index = data.findIndex(teste => teste._id === modalSaveId)
-            data[index].score = score;
-            data[index].status = "done";
-            buildDom();
-
-            let myModal = new bootstrap.Modal(document.getElementById('modal1'), {});
-            myModal.hide();
+            window.location.reload()
         })
     } else {
         alert("Score invalido")
@@ -120,8 +103,7 @@ window.onload = function () {
     api.get('/testes').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((teste, index) => ({ ...teste, id: index }));
-            console.log(data)
-            buildDom();
+            dataController.addData(data);
 
             /* const query = new URLSearchParams(window.location.href);
             if(query.has(window.location.origin + window.location.pathname + "?id")) {
