@@ -19,7 +19,7 @@ const CandidatoSchema = new Schema({
   status: {
     type: String,
     enum: ['aprovado', 'reprovado','triagem', 'teste'],
-    default: 'created'
+    default: 'triagem'
   },
   done: Date,
   vaga: { type: Schema.Types.ObjectId, ref: 'Vagas' },

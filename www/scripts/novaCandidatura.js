@@ -3,23 +3,29 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [];
+let data = [],
+    user = [];
 
 function onCreate() {
     let nome = document.getElementById("nome").value,
         genero = document.getElementById("genero"),
         selectedGenero = genero.options[genero.selectedIndex].text,
+        dataNascimento = document.getElementById("dataNascimento").value,
+        endereco = document.getElementById("endereco").value,
         email = document.getElementById("email").value,
         telefone = document.getElementById("telefone").value,
         salario = document.getElementById("salario").value,
         escolaridade = document.getElementById("escolaridade"),
         selectedEscolaridade = escolaridade.options[escolaridade.selectedIndex].text,
+        experiencia = document.getElementById("experiencia").value,
         habilidades = document.getElementById("habilidades").value,
+        type = (user.isAuth) ? "Interno" : "Externo",
         vaga = data._id,
-        dataToSend = { nome, selectedGenero, email, telefone, salario, selectedEscolaridade, vaga, habilidades};
+        dataToSend = { nome, selectedGenero, dataNascimento, endereco, email, telefone, salario, selectedEscolaridade, vaga, type, habilidades, experiencia};
 
     api.post("/candidatos/create", dataToSend).then(res => {
         console.log(res.data);
+        clearFields();
     })
 }
 
@@ -49,6 +55,17 @@ function onCreate() {
 
 }*/
 
+function clearFields () {
+    document.getElementById("nome").value = "";
+    document.getElementById("dataNascimento").value = "";
+    document.getElementById("endereco").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("telefone").value = "";
+    document.getElementById("salario").value = "";
+    document.getElementById("experiencia").value = "";
+    document.getElementById("habilidades").value = "";
+}
+
 window.onload = function () {
 
     let params = new URLSearchParams(window.location.search),
@@ -56,9 +73,16 @@ window.onload = function () {
 
     if(params) {
 
-        api.get("/vagas/" + params.get("id")).then((response) => {
+        //validates the user's authentication status
+    api.post('/auth/validate').then((res) => {
+        if (res.status === 200) {
+            user = res.data;
+            if (user.isAuth) {
+                return;
+            }
+
+            api.get("/vagas/" + params.get("id")).then((response) => {
                 data = response.data;
-                //fillFields(data);
 
                 buttonCreate.innerText = "Submeter Candidatura";
                 buttonCreate.addEventListener("click", () => {
@@ -67,6 +91,9 @@ window.onload = function () {
 
             })
             .catch((err) => console.log(err));
+        }
+
+    }).catch(err => console.log(err))
 
     }
 }
