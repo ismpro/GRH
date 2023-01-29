@@ -97,27 +97,31 @@
                                             <option value="Masculino" selected="">Masculino</option>
                                             <option value="Feminino">Feminino</option>
                                         </select>
-                                        <label class="form-label">Email</label>
+                                        <label class="form-label" style="margin-top: .3rem;">Data de Nascimento</label>
+                                        <input class="form-control" type="date" required="" id="dataNascimento" data-group="formFields">
+                                        <label class="form-label" style="margin-top: .3rem;">Endereco</label>
+                                        <input class="form-control" type="text" required="" id="endereco" data-group="formFields">
+                                        <label class="form-label" style="margin-top: .3rem;">Email</label>
                                         <input class="form-control" type="text" required="" id="email" data-group="formFields">
-                                        <label class="form-label">Telefone</label>
-                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields">
                                     </div>
                                     <div class="col-md-6" id="coluna2">
                                         <label class="form-label">Telefone</label>
                                         <input class="form-control" type="text" required="" id="telefone" data-group="formFields">
-                                        <label class="form-label">Salario Pretendido</label>
-                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields">
-                                        <label class="form-label">Escolaridade</label>
+                                        <label class="form-label" style="margin-top: .3rem;">Escolaridade</label>
                                         <select class="form-select" id="escolaridade" data-group="formFields">
                                             <option value="Secundario" selected="">Secundario</option>
                                             <option value="Licenciado">Licenciado</option>
                                             <option value="Mestrado">Mestrado</option>
                                         </select>
-                                        <label class="form-label">Habilidades</label>
+                                        <label class="form-label" style="margin-top: .3rem;">Salario Pretendido</label>
+                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields">
+                                        <label class="form-label" style="margin-top: .3rem;">Experiencia Profissional</label>
+                                        <textarea class="form-control" required="" id="experiencia" data-group="formFields"></textarea>
+                                        <label class="form-label" style="margin-top: .3rem;">Habilidades</label>
                                         <textarea class="form-control" required="" id="habilidades" data-group="formFields"></textarea>
                                         <button class="btn btn-primary" type="button"
                                             id="btnCreate"
-                                            style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;margin-left: 85%;">Criar</button>
+                                            style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;float: right;">Criar</button>
                                     </div>
                                 </div>
                             </form>

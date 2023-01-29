@@ -48,7 +48,8 @@ function fillFields (data) {
 window.onload = function () {
 
     let params = new URLSearchParams(window.location.search),
-        buttonCreate = document.getElementById("btnCreate");
+        buttonCreate = document.getElementById("btnCreate"),
+        tituloContainer = document.getElementById("tituloContainer");
 
     if(params) {
 
@@ -57,6 +58,7 @@ window.onload = function () {
                 fillFields(data);
 
                 buttonCreate.innerText = "Candidatar-me";
+                tituloContainer.innerText = "Vaga";
                 buttonCreate.addEventListener("click", () => {
                     var params = new URLSearchParams();
                     params.append("id", data._id);

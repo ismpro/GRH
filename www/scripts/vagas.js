@@ -3,7 +3,9 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [];
+let data = [],
+    filteredData = [],
+    user = {};
 
 function buildDom() {
     let tableBody = document.getElementById("tableBody");
@@ -29,7 +31,7 @@ function buildDom() {
         }
     });*/
 
-    for (const vaga of data) {
+    for (const vaga of filteredData) {
         let tr = document.createElement("tr"),
             objectDate = new Date(vaga.validade), 
             month = ((objectDate.getMonth() + 1) < 9) ? ("0" + (objectDate.getMonth() + 1)) : (objectDate.getMonth() + 1);
@@ -68,6 +70,20 @@ function buildDom() {
 
         });
 
+        tableBody.addEventListener("click", function(e) {
+            if (e.target.tagName === "BUTTON") {
+                var params = new URLSearchParams();
+                params.append("id", vaga._id);
+
+                window.location.href = "nova_candidatura.html?" + params.toString();
+            } else {
+                var params = new URLSearchParams();
+                params.append("id", vaga._id);
+
+                window.location.href = "nova_vaga.html?" + params.toString();
+            }
+        });
+
         tableBody.appendChild(tr);
     }
 }
@@ -79,20 +95,40 @@ window.onload = function () {
         window.location.href = "nova_vaga.html";
     });
 
-    api.get('/vagas').then(res => {
-        if (typeof res.data === 'object') {
-            data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
-            console.log(data)
-            buildDom();
 
-            const query = new URLSearchParams(window.location.href);
-            if(query.has(window.location.origin + window.location.pathname + "?id")) {
-                let id = query.get(window.location.origin + window.location.pathname + "?id")
-                let vaga = data.find((vag => vag._id = id));
-                if(vaga) {
-                    window.location.href = "nova_vaga.html?" + id;
+    //validates the user's authentication status
+    api.post('/auth/validate').then((res) => {
+        if (res.status === 200) {
+            user = res.data;
+            if (user.isAuth) {
+
+                if (user.type === "manager") {
+                    document.getElementById("managerContainer").style.display = "block";
+                } else {
+                    document.getElementById("managerContainer").style.display = "none";
                 }
+
+                return;
             }
+
+            api.get('/vagas').then(res => {
+                if (typeof res.data === 'object') {
+                    data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
+                    filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
+                    console.log(data)
+                    buildDom();
+        
+                    const query = new URLSearchParams(window.location.href);
+                    if(query.has(window.location.origin + window.location.pathname + "?id")) {
+                        let id = query.get(window.location.origin + window.location.pathname + "?id")
+                        let vaga = data.find((vag => vag._id = id));
+                        if(vaga) {
+                            window.location.href = "nova_vaga.html?" + id;
+                        }
+                    }
+                }
+            });
         }
-    });
+
+    }).catch(err => console.log(err))
 }
