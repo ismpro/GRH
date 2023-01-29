@@ -122,10 +122,12 @@ module.exports = function (Mailing) {
 
                     case "aprovar":
                         candidato.status = "aprovado";
+                        candidato.done = new Date();
                         break;
 
                     case "reprovar":
                         candidato.status = "reprovado";
+                        candidato.done = new Date();
                         break;
                 }
                 candidato.save();

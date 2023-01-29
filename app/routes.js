@@ -10,6 +10,8 @@ module.exports = function (app, Mailing) {
         res.status(200).sendFile(path.join(global.appRoot, "www", "candidatura.html"));
     })
 
+    app.get('/stats', require('../routes/stats')())
+
     //Testes
     app.get('/testes', require('../routes/testes/all')())
     app.get('/teste', require('../routes/testes/get')())

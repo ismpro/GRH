@@ -21,6 +21,7 @@ const CandidatoSchema = new Schema({
     enum: ['aprovado', 'reprovado','triagem', 'teste'],
     default: 'created'
   },
+  done: Date,
   vaga: { type: Schema.Types.ObjectId, ref: 'Vagas' },
 }, { timestamps: true });
 
