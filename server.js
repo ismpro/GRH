@@ -64,8 +64,13 @@ app.use(cookieParser())
 //app.use(logger());
 app.use(morgan("dev"))
 
+
 //Serving statics files
-app.use(express.static('www'))
+//app.use(express.static(path.join(__dirname, 'www')));
+//Para não servir os html diretamente
+app.use('/images', express.static(path.join(__dirname, 'www', 'images')));
+app.use('/styles', express.static(path.join(__dirname, 'www', 'styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'www', 'scripts')));
 
 //Setting Sessions
 app.use(session({
@@ -78,7 +83,7 @@ app.use(session({
         sameSite: 'lax',
         secure: false
     },
-    store: MongoStore.create({ client: db.getClient(), dbName: "server", collectionName: "Sessions"})
+    store: MongoStore.create({ client: db.getClient(), dbName: "server", collectionName: "Sessions" })
 }))
 
 //Adding Routes
@@ -93,9 +98,9 @@ app.use(function (err, req, res) {
 db.once('open', function () {
     console.log(chalk.green('\n  MongoDB Connected'));
     var server = app.listen(app.get('port'),
-    () => {
-        console.log(chalk.green(`\n  Server Listing on: ${server.address().address === '::' ? 'localhost' : server.address().address}:${server.address().port}`))
-    })
+        () => {
+            console.log(chalk.green(`\n  Server Listing on: ${server.address().address === '::' ? 'localhost' : server.address().address}:${server.address().port}`))
+        })
 
     /* const entrevista = require("./models/Entrevista")
 
@@ -129,24 +134,24 @@ db.once('open', function () {
     candidato1.save()
     candidato2.save() */
 
-   /*  nome: String,
-  endereco: String,
-  email: String,
-  telefone: String,
-  dataNascimento: Date,
-  genero: String,
-  escolaridade: String,
-  experienciaProfissional: String,
-  habilidades: [String],
-  pretensaoSalarial: Number,
-  type: {
-    type: String,
-    enum: ['Interno', 'Externo'],
-    default: 'Externo'
-  },
-  status: {
-    type: String,
-    enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
-    default: 'created'
-  } */
+    /*  nome: String,
+   endereco: String,
+   email: String,
+   telefone: String,
+   dataNascimento: Date,
+   genero: String,
+   escolaridade: String,
+   experienciaProfissional: String,
+   habilidades: [String],
+   pretensaoSalarial: Number,
+   type: {
+     type: String,
+     enum: ['Interno', 'Externo'],
+     default: 'Externo'
+   },
+   status: {
+     type: String,
+     enum: ['aprovado', 'reprovado','triagem', 'teste', 'decisao'],
+     default: 'created'
+   } */
 });

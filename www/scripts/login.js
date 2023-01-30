@@ -20,7 +20,7 @@ function onLogin(ev) {
                 if(res.data === "manager") {
                     window.location.href = '/';
                 } else {
-                    window.location.href = '/vagas.html';
+                    window.location.href = '/vagas';
                 }
                 
             }, 1000);

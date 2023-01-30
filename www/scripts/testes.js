@@ -100,7 +100,7 @@ function onSave() {
 
 
 window.onload = function () {
-    api.get('/testes').then(res => {
+    api.get('/testes/all').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((teste, index) => ({ ...teste, id: index }));
             dataController.addData(data);

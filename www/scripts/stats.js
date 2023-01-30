@@ -12,11 +12,6 @@ window.onload = function () {
     api.get('/stats').then((res) => {
         if (res.status === 200) {
             let data = res.data;
-            {/* mediaTeste
-             */}
-
-            {/*  taxaAceitacao
-             */}
 
             let mediaTeste = document.getElementById("mediaTeste");
             let mediaAceitacao = document.getElementById("mediaAceitacao");

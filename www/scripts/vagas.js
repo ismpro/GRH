@@ -111,7 +111,7 @@ window.onload = function () {
                 return;
             }
 
-            api.get('/vagas').then(res => {
+            api.get('/vagas/all').then(res => {
                 if (typeof res.data === 'object') {
                     data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
                     filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
