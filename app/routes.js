@@ -80,6 +80,7 @@ module.exports = function (app, Mailing) {
     app.get('/vagas/:id', require('../routes/vagas/byId')())
     app.post('/vagas/create', require('../routes/vagas/create')())
     app.post('/vagas/edit', require('../routes/vagas/edit')())
+    app.post('/vagas/delete', require('../routes/vagas/delete')())
 
     //Candidatos
     app.get('/candidatos', require('../routes/candidato/all')())

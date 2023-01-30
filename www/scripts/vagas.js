@@ -42,20 +42,34 @@ function buildDom() {
         let td = document.createElement("td");
 
         let button = document.createElement("button");
+        let btnDelete = document.createElement("button");
         button.id = "buttonCandidatar";
         button.type = "button";
         button.className = "btn btn-primary";
         button.innerText = "Editar";
-        button.setAttribute("data-bs-toggle", "modal");
-        button.setAttribute("data-bs-target", "#modal1");
+        btnDelete.id = "btnDelete";
+        btnDelete.type = "button";
+        btnDelete.className = "btn btn-primary";
+        btnDelete.innerText = "Apagar";
+        btnDelete.style.marginLeft = "5px";
+        btnDelete.style.backgroundColor = "#d73b3e";
         button.onclick = function () {
             var params = new URLSearchParams();
             params.append("id", vaga._id);
-
             window.location.href = "/nova_vaga?" + params.toString();
+        }
+        let id = vaga._id;
+        btnDelete.onclick = function () {
+            if(confirm("Tem a certeza que pretende apagar a vaga?")){
+                api.post("/vagas/delete", {id}).then((res) => {
+                    console.log(res.data);
+                    window.location.href = "/vagas";
+                })
+            } 
         }
 
         td.appendChild(button);
+        td.appendChild(btnDelete);
 
         tr.appendChild(td);
 
