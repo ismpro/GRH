@@ -1,6 +1,6 @@
 "use strict";
 
-let user;
+var user;
 
 window.addEventListener("DOMContentLoaded", function () {
     const navbar = document.getElementById('navbar');

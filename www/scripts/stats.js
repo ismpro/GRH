@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     `
                 <h4 class="small fw-bold">${typeEnum[key]}<span class="float-end">${data.mediaPorTestes[key]}/20</span></h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" aria-valuenow="${data.mediaPorTestes[key]}" aria-valuemin="0" aria-valuemax="20" style="width: ${to20(data.mediaPorTestes[key])}%;"><span class="visually-hidden">${data.mediaPorTestes[key]}%</span></div>
+                    <div class="progress-bar bg-danger" aria-valuenow="${data.mediaPorTestes[key]}" aria-valuemin="0" aria-valuemax="20" style="width: ${to10(data.mediaPorTestes[key])}%;"><span class="visually-hidden">${data.mediaPorTestes[key]}%</span></div>
                 </div>
                 `
             }
@@ -76,6 +76,6 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 })
 
-function to20(num) {
-    return (100 * num) / 20;
+function to10(num) {
+    return (100 * num) / 10;
 }
