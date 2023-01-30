@@ -29,7 +29,7 @@ function buildDom() {
             window.location.href = "nova_vaga.html?" + params.toString();
         }
     });*/
-
+    console.log(filteredData);
     for (const vaga of filteredData) {
         let tr = document.createElement("tr"),
             objectDate = new Date(vaga.validade),
@@ -46,48 +46,25 @@ function buildDom() {
         button.id = "buttonCandidatar";
         button.type = "button";
         button.className = "btn btn-primary";
-        button.innerText = "Candidatar-me";
+        button.innerText = "Editar";
         button.setAttribute("data-bs-toggle", "modal");
         button.setAttribute("data-bs-target", "#modal1");
         button.onclick = function () {
             var params = new URLSearchParams();
             params.append("id", vaga._id);
 
-            window.location.href = "/nova_candidatura?" + params.toString();
+            window.location.href = "/nova_vaga?" + params.toString();
         }
 
         td.appendChild(button);
 
         tr.appendChild(td);
 
-        tr.addEventListener("click", (oEvent) => {
-
-            var params = new URLSearchParams();
-            params.append("id", vaga._id);
-
-            window.location.href = "/nova_vaga?" + params.toString();
-
-        });
-
-        tableBody.addEventListener("click", function (e) {
-            if (e.target.tagName === "BUTTON") {
-                var params = new URLSearchParams();
-                params.append("id", vaga._id);
-
-                window.location.href = "/nova_candidatura?" + params.toString();
-            } else {
-                var params = new URLSearchParams();
-                params.append("id", vaga._id);
-
-                window.location.href = "/nova_vaga?" + params.toString();
-            }
-        });
-
         tableBody.appendChild(tr);
     }
 }
 
-window.addEventListener("DOMContentLoaded", function () {
+function onAuth(){
     let buttonAdicionarVaga = document.getElementById("adicionarVaga");
 
     buttonAdicionarVaga.addEventListener("click", () => {
@@ -111,4 +88,4 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-})
+}

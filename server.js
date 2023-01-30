@@ -89,11 +89,6 @@ app.use(session({
 //Adding Routes
 require('./app/routes.js')(app, Mailing)
 
-//Handling erros inside of server
-app.use(function (err, req, res) {
-    res.status(500).send('Something broke!')
-})
-
 //Starting to listen to requests
 db.once('open', function () {
     console.log(chalk.green('\n  MongoDB Connected'));

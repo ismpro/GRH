@@ -1,6 +1,6 @@
 "use strict";
 
-let user;
+var user;
 
 window.addEventListener("DOMContentLoaded", function () {
     const navbar = document.getElementById('navbar');
@@ -16,6 +16,10 @@ window.addEventListener("DOMContentLoaded", function () {
         if (res.status === 200) {
 
             user = res.data;
+
+            if(typeof onAuth === "function"){
+                onAuth();
+            }
 
             if (res.data.isAuth) {
 
