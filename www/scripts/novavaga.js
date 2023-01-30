@@ -17,6 +17,7 @@ function onCreate() {
     console.log(dataToSend);
     api.post("/vagas/create", dataToSend).then(res => {
         console.log(res.data);
+        window.location.href = "/vagas";
     })
 }
 
@@ -46,6 +47,7 @@ function onEdit() {
         console.log(dataToSend);
         api.post("/vagas/edit", dataToSend).then((res) => {
             console.log(res.data);
+            window.location.href = "/vagas";
         })
 
     })
