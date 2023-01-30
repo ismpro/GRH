@@ -37,8 +37,6 @@ module.exports = function () {
 
             let totalSelectionTime = 0;
             let doneCandidatos = candidatos.filter(candidato => candidato.status === 'aprovado' || candidato.status === 'reprovado');
-
-            console.log(doneCandidatos)
             
             doneCandidatos.forEach(candidate => {
                 const selectionTime = (candidate.done.getTime() - candidate.createdAt.getTime());
