@@ -9,6 +9,8 @@ module.exports = function () {
     return async function (req, res) {
         let data = req.body;
 
+        console.log(data)
+
         let vaga = await Vaga.findById(req.body.id);
         vaga.titulo = data.titulo;
         vaga.descricao = data.descricao;
