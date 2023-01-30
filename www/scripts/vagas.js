@@ -54,7 +54,7 @@ function buildDom() {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_candidatura.html?" + params.toString();
+                window.location.href = "/nova_candidatura?" + params.toString();
             }
     
         td.appendChild(button);
@@ -66,7 +66,7 @@ function buildDom() {
             var params = new URLSearchParams();
             params.append("id", vaga._id);
 
-            window.location.href = "nova_vaga.html?" + params.toString();
+            window.location.href = "/nova_vaga?" + params.toString();
 
         });
 
