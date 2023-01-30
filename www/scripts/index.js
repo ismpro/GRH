@@ -53,7 +53,7 @@ function buildDom() {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_candidatura.html?" + params.toString();
+                window.location.href = "/nova_candidatura?" + params.toString();
             }
     
         td.appendChild(button);
@@ -78,18 +78,9 @@ window.onload = function () {
     api.get('/vagas/all').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
-            filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
+            filteredData = data.filter(item => !item.tipoVaga);//(user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
             console.log(data)
             buildDom();
-
-            const query = new URLSearchParams(window.location.href);
-            if(query.has(window.location.origin + window.location.pathname + "?id")) {
-                let id = query.get(window.location.origin + window.location.pathname + "?id")
-                let vaga = data.find((vag => vag._id = id));
-                if(vaga) {
-                    window.location.href = "nova_vaga.html?" + id;
-                }
-            }
         }
     });
         
