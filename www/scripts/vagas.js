@@ -75,12 +75,12 @@ function buildDom() {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_candidatura.html?" + params.toString();
+                window.location.href = "nova_candidatura?" + params.toString();
             } else {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_vaga.html?" + params.toString();
+                window.location.href = "nova_vaga?" + params.toString();
             }
         });
 
@@ -92,7 +92,7 @@ window.addEventListener("DOMContentLoaded", function () {
     let buttonAdicionarVaga = document.getElementById("adicionarVaga");
 
     buttonAdicionarVaga.addEventListener("click", () => {
-        window.location.href = "nova_vaga.html";
+        window.location.href = "nova_vaga";
     });
 
     //validates the user's authentication status
@@ -122,7 +122,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         let id = query.get(window.location.origin + window.location.pathname + "?id")
                         let vaga = data.find((vag => vag._id = id));
                         if(vaga) {
-                            window.location.href = "nova_vaga.html?" + id;
+                            window.location.href = "nova_vaga?" + id;
                         }
                     }
                 }
