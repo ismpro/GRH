@@ -12,7 +12,6 @@ let dataController = tableMaker("table", (candidato)=> {
     <td>${candidato.type}</td>
     <td>${candidato.createdAt.toLocaleString().split(',')[0]}</td>`;
 
-    //<td><button class="btn btn-primary" type="button">Button</button></td>
     let td = document.createElement("td");
 
     if(!['aprovado', 'reprovado'].includes(candidato.status)) {
@@ -53,7 +52,7 @@ function makeModal(candidato) {
     modalInfo.innerHTML = `
         <p>Nome: ${candidato.nome}</p>
         <p>Tipo: ${candidato.type}</p>
-        <p>Funcao: <a href="/funcao?id=${candidato.funcao._id}">${candidato.funcao.titulo}</a></p>
+        <p>Vaga: <a href="/nova_vaga?id=${candidato.funcao._id}">${candidato.funcao.titulo}</a></p>
         <p>Começado: ${candidato.createdAt.toLocaleString().split(',')[0]}</p>
         <p>Email: ${candidato.email}</p>
         <p>Telefone: ${candidato.telefone}</p>

@@ -84,7 +84,7 @@ module.exports = function (app, Mailing) {
 
     //Candidatos
     app.get('/candidatos', require('../routes/candidato/all')())
-    app.post('/candidatos/create', require('../routes/candidato/create')())
+    app.post('/candidatos/create', require('../routes/candidato/create')(Mailing))
     app.post('/candidatos/alterStatus', require('../routes/candidato/alterStatus')(Mailing))
 
     //Auth

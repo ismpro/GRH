@@ -7,7 +7,7 @@ const Vaga = require('../../models/Vaga');
  * @module Candidato/create
  * @returns {Function}
  */
-module.exports = function () {
+module.exports = function (Mailing) {
     return function (req, res) {
         let data = req.body;
     
@@ -31,7 +31,7 @@ module.exports = function () {
                 
                 Mailing.sendEmail({
                     email: candidato.email,
-                    template: "teste",
+                    template: "welcome",
                     subject: "Bem-vindo ao processo de recrutamento e seleção",
                     candidateName: candidato.nome,
                     recruitersName: manager.nome,
