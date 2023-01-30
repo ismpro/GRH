@@ -21,28 +21,6 @@
 
 <body id="page-top">
     <div id="wrapper">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0"><a
-                    class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>RecruitMe</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i
-                                class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="candidatura.html"><i
-                                class="fas fa-table"></i><span>Candidaturas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="testes.html"><i
-                                class="fas fa-table"></i><span>Testes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="entrevista.html"><i
-                                class="fas fa-table"></i><span>Entrevistas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="vagas.html"><i class="fas fa-table"></i><span>Vagas</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
-                        id="sidebarToggle" type="button"></button></div>
-            </div>
-        </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top" style="background-color: #4e73df !important;">
@@ -69,63 +47,84 @@
                 <div class="container-fluid">
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Nova Candidatura</p>
+                            <p class="text-primary m-0 fw-bold" id="VagaContainer">Vaga</p>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid"
-                                aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr></tr>
-                                        <tr></tr>
-                                        <tr></tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                            <form>
+                                <div class="row" id="vaga">
+                                    <div class="col-md-6" id="vagaColuna1">
+                                        <label class="form-label">Título</label>
+                                        <input class="form-control" type="text" required="" id="titulo" data-group="formFields">
+                                        <label class="form-label">Descrição</label>
+                                        <textarea class="form-control" required="" id="descricao" data-group="formFields"></textarea>
+                                        <label class="form-label">Escritório</label>
+                                        <select class="form-select" id="escritorio" data-group="formFields">
+                                            <option value="Lisboa" selected="">Lisboa</option>
+                                            <option value="Porto">Porto</option>
+                                            <option value="Teletrabalho">Teletrabalho</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="vagaColuna2">
+                                        <label class="form-label">Validade</label>
+                                        <input class="form-control" type="date" required="" id="validade" data-group="formFields">
+                                        <label class="form-label">Requisitos</label>
+                                        <textarea class="form-control" required="" id="requisitos" data-group="formFields"></textarea>
+                                        <div class="form-check" style="margin-top: 15px;" id="checkbox">
+                                            <input class="form-check-input" type="checkbox" id="formCheck-2">
+                                            <label class="form-check-label" for="formCheck-2">Vaga Interna</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="margin-top: 40px;margin-bottom: 40px;">
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold" id="tituloContainer">Nova Candidatura</p>
+                        </div>
+                        <div class="card-body">
                             <form>
                                 <div class="row" id="formulario">
                                     <div class="col-md-6" id="coluna1">
                                         <label class="form-label">Nome</label>
-                                        <input class="form-control" type="text" required="" id="nome" data-group="formFields">
+                                        <input class="form-control" type="text" required="" id="nome" data-group="formFields2">
                                         <label class="form-label">Genero</label>
-                                        <select class="form-select" id="genero" data-group="formFields">
+                                        <select class="form-select" id="genero" data-group="formFields2">
                                             <option value="Masculino" selected="">Masculino</option>
                                             <option value="Feminino">Feminino</option>
                                         </select>
                                         <label class="form-label" style="margin-top: .3rem;">Data de Nascimento</label>
-                                        <input class="form-control" type="date" required="" id="dataNascimento" data-group="formFields">
+                                        <input class="form-control" type="date" required="" id="dataNascimento" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Endereco</label>
-                                        <input class="form-control" type="text" required="" id="endereco" data-group="formFields">
+                                        <input class="form-control" type="text" required="" id="endereco" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Email</label>
-                                        <input class="form-control" type="text" required="" id="email" data-group="formFields">
+                                        <input class="form-control" type="text" required="" id="email" data-group="formFields2">
                                     </div>
                                     <div class="col-md-6" id="coluna2">
                                         <label class="form-label">Telefone</label>
-                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields">
+                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Escolaridade</label>
-                                        <select class="form-select" id="escolaridade" data-group="formFields">
+                                        <select class="form-select" id="escolaridade" data-group="formFields2">
                                             <option value="Secundario" selected="">Secundario</option>
                                             <option value="Licenciado">Licenciado</option>
                                             <option value="Mestrado">Mestrado</option>
                                         </select>
                                         <label class="form-label" style="margin-top: .3rem;">Salario Pretendido</label>
-                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields">
+                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Experiencia Profissional</label>
-                                        <textarea class="form-control" required="" id="experiencia" data-group="formFields"></textarea>
+                                        <textarea class="form-control" required="" id="experiencia" data-group="formFields2"></textarea>
                                         <label class="form-label" style="margin-top: .3rem;">Habilidades</label>
-                                        <textarea class="form-control" required="" id="habilidades" data-group="formFields"></textarea>
+                                        <textarea class="form-control" required="" id="habilidades" data-group="formFields2"></textarea>
                                         <button class="btn btn-primary" type="button"
                                             id="btnCreate"
                                             style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;float: right;">Criar</button>
                                     </div>
                                 </div>
                             </form>
+                        </div>
                         </div>
                     </div>
                 </div>

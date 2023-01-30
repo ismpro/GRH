@@ -4,8 +4,7 @@ const api = axios.create({
 });
 
 let data = [],
-    filteredData = [],
-    user = {};
+    filteredData = [];
 
 function buildDom() {
     let tableBody = document.getElementById("tableBody");
@@ -36,7 +35,7 @@ function buildDom() {
             objectDate = new Date(vaga.validade), 
             month = ((objectDate.getMonth() + 1) < 9) ? ("0" + (objectDate.getMonth() + 1)) : (objectDate.getMonth() + 1);
 
-        tr.innerHTML =
+            tr.innerHTML =
             `<td>${vaga.titulo}</td>
         <td>${objectDate.getFullYear() + "-" + month + "-" + objectDate.getDate()}</td>
         <td>${vaga.escritorio}</td>`;
@@ -61,28 +60,14 @@ function buildDom() {
          
         tr.appendChild(td);
 
-        tr.addEventListener("click", (oEvent) => {
-
-            var params = new URLSearchParams();
-            params.append("id", vaga._id);
-
-            window.location.href = "/nova_vaga?" + params.toString();
-
-        });
-
-        tableBody.addEventListener("click", function(e) {
+        /*tableBody.addEventListener("click", function(e) {
             if (e.target.tagName === "BUTTON") {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
                 window.location.href = "/nova_candidatura?" + params.toString();
-            } else {
-                var params = new URLSearchParams();
-                params.append("id", vaga._id);
-
-                window.location.href = "/nova_vaga?" + params.toString();
             }
-        });
+        });*/
 
         tableBody.appendChild(tr);
     }
@@ -90,39 +75,22 @@ function buildDom() {
 
 window.onload = function () {
 
-    //validates the user's authentication status
-    api.post('/auth/validate').then((res) => {
-        if (res.status === 200) {
-            user = res.data;
-            if (user.isAuth) {
+    api.get('/vagas/all').then(res => {
+        if (typeof res.data === 'object') {
+            data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
+            filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
+            console.log(data)
+            buildDom();
 
-                if (user.type === "manager") {
-                    document.getElementById("managerContainer").style.display = "block";
-                } else {
-                    document.getElementById("managerContainer").style.display = "none";
+            const query = new URLSearchParams(window.location.href);
+            if(query.has(window.location.origin + window.location.pathname + "?id")) {
+                let id = query.get(window.location.origin + window.location.pathname + "?id")
+                let vaga = data.find((vag => vag._id = id));
+                if(vaga) {
+                    window.location.href = "nova_vaga.html?" + id;
                 }
-
-                return;
             }
-
-            api.get('/vagas/all').then(res => {
-                if (typeof res.data === 'object') {
-                    data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
-                    filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
-                    console.log(data)
-                    buildDom();
-        
-                    const query = new URLSearchParams(window.location.href);
-                    if(query.has(window.location.origin + window.location.pathname + "?id")) {
-                        let id = query.get(window.location.origin + window.location.pathname + "?id")
-                        let vaga = data.find((vag => vag._id = id));
-                        if(vaga) {
-                            window.location.href = "nova_vaga.html?" + id;
-                        }
-                    }
-                }
-            });
         }
-
-    }).catch(err => console.log(err))
+    });
+        
 }

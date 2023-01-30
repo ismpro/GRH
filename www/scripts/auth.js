@@ -1,6 +1,6 @@
 "use strict";
 
-let user;
+var user;
 
 window.addEventListener("DOMContentLoaded", function () {
     const navbar = document.getElementById('navbar');
@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 <li id="logout" class="nav-item dropdown no-arrow">
                     <div class="nav-item dropdown no-arrow">
                         <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-                            <span class="d-none d-lg-inline me-2 text-gray-600 small">${res.data.name}</span>
+                            <span class="d-none d-lg-inline me-2 text-gray-600 small" style="color: white;">${res.data.name}</span>
                         </a>
                         <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
                             <a class="dropdown-item" onclick="javascript: onLogout()" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
