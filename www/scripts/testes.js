@@ -99,7 +99,7 @@ function onSave() {
 }
 
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", function () {
     api.get('/testes/all').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((teste, index) => ({ ...teste, id: index }));
@@ -118,4 +118,4 @@ window.onload = function () {
             } */
         }
     });
-}
+})

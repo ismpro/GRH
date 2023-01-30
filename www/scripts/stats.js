@@ -8,7 +8,7 @@ const typeEnum = {
     'testeingles': 'Teste de Ingles'
 }
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", function () {
     api.get('/stats').then((res) => {
         if (res.status === 200) {
             let data = res.data;
@@ -74,7 +74,7 @@ window.onload = function () {
 
         }
     });
-}
+})
 
 function to20(num) {
     return (100 * num) / 20;

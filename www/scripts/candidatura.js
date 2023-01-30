@@ -206,7 +206,7 @@ function transformDate(modalDate, modalTime) {
     return new Date(+year, +month - 1, +day, +hours, +minutes);
 }
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", function () {
     api.get('/candidatos').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((candidato, index) => ({ ...candidato, id: index, createdAt: new Date(candidato.createdAt) }));
@@ -225,4 +225,4 @@ window.onload = function () {
             }
         }
     });
-}
+})

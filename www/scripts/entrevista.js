@@ -3,7 +3,6 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [];
 let modalSaveId = "";
 
 let dataController = tableMaker("table", (entrevista)=> {
@@ -89,7 +88,7 @@ function onSave() {
 window.onload = function () {
     api.get('/entrevistas').then(res => {
         if (typeof res.data === 'object') {
-            data = res.data.map((entrevista, index) => ({ ...entrevista, id: index }));
+            let data = res.data.map((entrevista, index) => ({ ...entrevista, id: index }));
             dataController.addData(data);
 
             /* const query = new URLSearchParams(window.location.href);

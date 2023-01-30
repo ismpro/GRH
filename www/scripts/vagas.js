@@ -88,7 +88,7 @@ function buildDom() {
     }
 }
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", function () {
     let buttonAdicionarVaga = document.getElementById("adicionarVaga");
 
     buttonAdicionarVaga.addEventListener("click", () => {
@@ -131,4 +131,4 @@ window.onload = function () {
         }
 
     }).catch(err => console.log(err))
-}
+})
