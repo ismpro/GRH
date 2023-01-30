@@ -38,7 +38,8 @@ function buildDom() {
         tr.innerHTML =
             `<td>${vaga.titulo}</td>
         <td>${objectDate.getFullYear() + "-" + month + "-" + objectDate.getDate()}</td>
-        <td>${vaga.escritorio}</td>`;
+        <td>${vaga.escritorio}</td>
+        <td>${(vaga.tipoVaga) ? "Interno" : "Externo"}</td>`;
 
         let td = document.createElement("td");
 

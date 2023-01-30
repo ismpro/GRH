@@ -1,6 +1,7 @@
 const Candidato = require('../../models/Candidato');
 const Testes = require('../../models/Testes');
 const Entrevista = require('../../models/Entrevista');
+const Vaga = require('../../models/Vaga');
 const User = require('../../models/User');
 const { formatDate } = require('../../app/functions')
 
@@ -40,7 +41,7 @@ module.exports = function (Mailing) {
         Candidato.findById(data.id, async function (err, candidato) {
             if (!err) {
 
-                candidato.vaga = await getPosition(candidato.vaga);
+                let position = await getPosition(candidato.vaga);
 
                 switch (data.type) {
                     case "entrevista":
@@ -52,25 +53,19 @@ module.exports = function (Mailing) {
                         newEntrevista.local = data.local;
                         newEntrevista.notes = "";
                         newEntrevista.status = "undone";
+                        let entrevista = await newEntrevista.save();
 
-                        try {
-                            let entrevista = await newEntrevista.save();
-
-                            await Mailing.sendEmail({
-                                email: candidato.email,
-                                template: "entrevista",
-                                subject: "Convocação para entrevista",
-                                nome: candidato.nome,
-                                cargo: candidato.vaga.titulo,
-                                local: entrevista.local,
-                                data: formatDate(entrevista.date),
-                                hora: entrevista.date.toLocaleTimeString(),
-                                manager: candidato.vaga.manager.nome
-                            });
-                            res.status(200).send(true);
-                        } catch (error) {
-                            res.status(500).send(err);
-                        }
+                        await Mailing.sendEmail({
+                            email: candidato.email,
+                            template: "entrevista",
+                            subject: "Convocação para entrevista",
+                            nome: candidato.nome,
+                            cargo: position.titulo,
+                            local: entrevista.local,
+                            data: formatDate(entrevista.date),
+                            hora: entrevista.date.toLocaleTimeString(),
+                            manager: position.manager.nome
+                        });
 
                         break;
 
@@ -87,7 +82,7 @@ module.exports = function (Mailing) {
                             let teste = await newTeste.save();
 
                             if (String(data.local).trim().toLocaleLowerCase() === "online") {
-                                Mailing.sendEmail({
+                                await Mailing.sendEmail({
                                     email: candidato.email,
                                     template: "teste",
                                     subject: "Convocação para Teste",
@@ -95,11 +90,11 @@ module.exports = function (Mailing) {
                                     link: `http://localhost:3000/teste?id=${teste._id}`,
                                     nome: candidato.nome,
                                     tipo: typeEnum[teste.type],
-                                    cargo: candidato.vaga.titulo,
+                                    cargo: position.titulo,
                                     data: formatDate(teste.schedule.date),
                                     hora: teste.schedule.date.toLocaleTimeString(),
-                                    manager: candidato.vaga.manager.nome
-                                }).then(data=>res.status(200).send(true)).catch(err=>console.log(err));
+                                    manager: position.manager.nome
+                                })
                             } else {
                                 await Mailing.sendEmail({
                                     email: candidato.email,
@@ -107,12 +102,12 @@ module.exports = function (Mailing) {
                                     subject: "Convocação para Teste",
                                     nome: candidato.nome,
                                     tipo: typeEnum[teste.type],
-                                    cargo: candidato.vaga.titulo,
+                                    cargo: position.titulo,
                                     local: teste.schedule.local,
                                     data: formatDate(teste.schedule.date),
                                     hora: teste.schedule.date.toLocaleTimeString(),
-                                    manager: candidato.vaga.manager.nome
-                                }).then(data=>res.status(200).send(true)).catch(err=>console.log(err));
+                                    manager: position.manager.nome
+                                })
                             }
 
                         } catch (error) {
@@ -130,7 +125,9 @@ module.exports = function (Mailing) {
                         candidato.done = new Date();
                         break;
                 }
-                candidato.save();
+
+                await candidato.save();
+                res.status(200).send(true)
             } else {
                 console.log(err);
                 res.status(500).send(err);

@@ -3,8 +3,7 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [],
-    user = [];
+let data = [];
 
 function onCreate() {
     let nome = document.getElementById("nome").value,
@@ -29,7 +28,7 @@ function onCreate() {
     })
 }
 
-/*function fillFields (data) {
+function fillFields (data) {
 
     let title = document.getElementById("titulo"),
         descricao = document.getElementById("descricao"),
@@ -53,7 +52,7 @@ function onCreate() {
         });
 
 
-}*/
+}
 
 function clearFields () {
     document.getElementById("nome").value = "";
@@ -73,16 +72,10 @@ window.onload = function () {
 
     if(params) {
 
-        //validates the user's authentication status
-    api.post('/auth/validate').then((res) => {
-        if (res.status === 200) {
-            user = res.data;
-            if (user.isAuth) {
-                return;
-            }
-
-            api.get("/vagas/" + params.get("id")).then((response) => {
+     api.get("/vagas/" + params.get("id")).then((response) => {
                 data = response.data;
+
+                fillFields(data);
 
                 buttonCreate.innerText = "Submeter Candidatura";
                 buttonCreate.addEventListener("click", () => {
@@ -92,8 +85,4 @@ window.onload = function () {
             })
             .catch((err) => console.log(err));
         }
-
-    }).catch(err => console.log(err))
-
-    }
 }
