@@ -52,6 +52,8 @@ function makeLogin(navbar) {
 
     loginA.className = "btn";
 
+    loginA.style = "color: white;";
+
     loginA.href = "/login";
 
     loginA.textContent = "Login";
