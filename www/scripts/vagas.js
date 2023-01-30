@@ -38,7 +38,8 @@ function buildDom() {
         tr.innerHTML =
             `<td>${vaga.titulo}</td>
         <td>${objectDate.getFullYear() + "-" + month + "-" + objectDate.getDate()}</td>
-        <td>${vaga.escritorio}</td>`;
+        <td>${vaga.escritorio}</td>
+        <td>${(vaga.tipoVaga) ? "Interno" : "Externo"}</td>`;
 
         let td = document.createElement("td");
 
@@ -46,42 +47,19 @@ function buildDom() {
         button.id = "buttonCandidatar";
         button.type = "button";
         button.className = "btn btn-primary";
-        button.innerText = "Candidatar-me";
+        button.innerText = "Editar";
         button.setAttribute("data-bs-toggle", "modal");
         button.setAttribute("data-bs-target", "#modal1");
         button.onclick = function () {
             var params = new URLSearchParams();
             params.append("id", vaga._id);
 
-            window.location.href = "/nova_candidatura?" + params.toString();
+            window.location.href = "/nova_vaga?" + params.toString();
         }
 
         td.appendChild(button);
 
         tr.appendChild(td);
-
-        tr.addEventListener("click", (oEvent) => {
-
-            var params = new URLSearchParams();
-            params.append("id", vaga._id);
-
-            window.location.href = "/nova_vaga?" + params.toString();
-
-        });
-
-        tableBody.addEventListener("click", function (e) {
-            if (e.target.tagName === "BUTTON") {
-                var params = new URLSearchParams();
-                params.append("id", vaga._id);
-
-                window.location.href = "/nova_candidatura?" + params.toString();
-            } else {
-                var params = new URLSearchParams();
-                params.append("id", vaga._id);
-
-                window.location.href = "/nova_vaga?" + params.toString();
-            }
-        });
 
         tableBody.appendChild(tr);
     }
