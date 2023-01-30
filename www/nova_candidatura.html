@@ -86,26 +86,26 @@
                             <p class="text-primary m-0 fw-bold" id="tituloContainer">Nova Candidatura</p>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form id="poisForm" name="poisForm" method="/POST">
                                 <div class="row" id="formulario">
                                     <div class="col-md-6" id="coluna1">
                                         <label class="form-label">Nome</label>
-                                        <input class="form-control" type="text" required="" id="nome" data-group="formFields2">
+                                        <input class="form-control" type="text" required id="nome" data-group="formFields2">
                                         <label class="form-label">Genero</label>
                                         <select class="form-select" id="genero" data-group="formFields2">
                                             <option value="Masculino" selected="">Masculino</option>
                                             <option value="Feminino">Feminino</option>
                                         </select>
                                         <label class="form-label" style="margin-top: .3rem;">Data de Nascimento</label>
-                                        <input class="form-control" type="date" required="" id="dataNascimento" data-group="formFields2">
+                                        <input class="form-control" type="date" required id="dataNascimento" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Endereco</label>
-                                        <input class="form-control" type="text" required="" id="endereco" data-group="formFields2">
+                                        <input class="form-control" type="text" required id="endereco" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Email</label>
-                                        <input class="form-control" type="text" required="" id="email" data-group="formFields2">
+                                        <input class="form-control" type="text" required id="email" data-group="formFields2">
                                     </div>
                                     <div class="col-md-6" id="coluna2">
                                         <label class="form-label">Telefone</label>
-                                        <input class="form-control" type="text" required="" id="telefone" data-group="formFields2">
+                                        <input class="form-control" type="text" required id="telefone" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Escolaridade</label>
                                         <select class="form-select" id="escolaridade" data-group="formFields2">
                                             <option value="Secundario" selected="">Secundario</option>
@@ -113,14 +113,14 @@
                                             <option value="Mestrado">Mestrado</option>
                                         </select>
                                         <label class="form-label" style="margin-top: .3rem;">Salario Pretendido</label>
-                                        <input class="form-control" type="number" required="" id="salario" data-group="formFields2">
+                                        <input class="form-control" type="number" required id="salario" data-group="formFields2">
                                         <label class="form-label" style="margin-top: .3rem;">Experiencia Profissional</label>
-                                        <textarea class="form-control" required="" id="experiencia" data-group="formFields2"></textarea>
+                                        <textarea class="form-control" required id="experiencia" data-group="formFields2"></textarea>
                                         <label class="form-label" style="margin-top: .3rem;">Habilidades</label>
-                                        <textarea class="form-control" required="" id="habilidades" data-group="formFields2"></textarea>
-                                        <button class="btn btn-primary" type="button"
+                                        <textarea class="form-control" required id="habilidades" data-group="formFields2"></textarea>
+                                        <button class="btn btn-primary" type="submit" form="poisForm"
                                             id="btnCreate"
-                                            style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;float: right;">Criar</button>
+                                            style="border-radius: 13.6px;text-align: right;position: static;margin: 0px;margin-top: 10px;float: right;">Submeter Candidatura</button>
                                     </div>
                                 </div>
                             </form>
