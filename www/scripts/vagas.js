@@ -28,7 +28,6 @@ function buildDom() {
             window.location.href = "nova_vaga.html?" + params.toString();
         }
     });*/
-    console.log(filteredData);
     for (const vaga of data) {
         let tr = document.createElement("tr"),
             objectDate = new Date(vaga.validade),
