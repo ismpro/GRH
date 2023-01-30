@@ -17,6 +17,7 @@ function onCreate() {
     console.log(dataToSend);
     api.post("/vagas/create", dataToSend).then(res => {
         console.log(res.data);
+        window.location.href = "/vagas";
     })
 }
 
@@ -31,16 +32,15 @@ function onEdit() {
     let selectedOffice = escritorio.options[escritorio.selectedIndex].text;
     let buttonCreate = document.getElementById("btnCreate");
     let tituloContainer = document.getElementById("tituloContainer");
-    let groupFields = document.querySelectorAll('[data-group="formFields"]');
     buttonCreate.innerText = "Submeter";
     tituloContainer.innerText = "Vaga";
     let id = params.get("id");
-    let dataToSend = { id, titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
-
+    
     buttonCreate.addEventListener("click", () =>{
-        console.log(dataToSend);
+        let dataToSend = { id, titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
         api.post("/vagas/edit", dataToSend).then((res) =>{
             console.log(res.data);
+            window.location.href = "/vagas";
         })
         
     })
