@@ -24,7 +24,7 @@ let dataController = tableMaker("table", (entrevista)=> {
 
             buttoninsert.type = "button";
             buttoninsert.className = "btn btn-primary";
-            buttoninsert.innerText = "Insert";
+            buttoninsert.innerText = "Notas";
             buttoninsert.setAttribute("data-bs-toggle", "modal");
             buttoninsert.setAttribute("data-bs-target", "#modal1");
             buttoninsert.onclick = function () {
@@ -35,7 +35,7 @@ let dataController = tableMaker("table", (entrevista)=> {
 
             buttoncancel.type = "button";
             buttoncancel.className = "btn btn-primary";
-            buttoncancel.innerText = "Cancel";
+            buttoncancel.innerText = "Cancelar";
             buttoncancel.style = "margin-left: 0px;background: var(--bs-red);border-style: none;";
             buttoncancel.onclick = function () {
                 api.post("/entrevistas/cancel", { id: entrevista._id }).then(res => {
