@@ -75,7 +75,7 @@ function onAuth(){
     api.get('/vagas/all').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
-            filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
+            filteredData = (user.isAuth) ? data.filter(item => item.manager === user.id) : data.filter(item => !item.tipoVaga);
             console.log(data)
             buildDom();
 
