@@ -18,7 +18,7 @@ let dataController = tableMaker("table", (candidato)=> {
         let button = document.createElement("button");
         button.type = "button";
         button.className = "btn btn-primary";
-        button.innerText = "Button";
+        button.innerText = "Mostrar";
         button.setAttribute("data-bs-toggle", "modal");
         button.setAttribute("data-bs-target", "#modal1");
         button.onclick = function () {
