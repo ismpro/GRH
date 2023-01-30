@@ -3,8 +3,7 @@ const api = axios.create({
     withCredentials: true,
 });
 
-let data = [],
-    filteredData = [];
+let data = [];
 
 function buildDom() {
     let tableBody = document.getElementById("tableBody");
@@ -29,8 +28,8 @@ function buildDom() {
             window.location.href = "nova_vaga.html?" + params.toString();
         }
     });*/
-
-    for (const vaga of filteredData) {
+    console.log(filteredData);
+    for (const vaga of data) {
         let tr = document.createElement("tr"),
             objectDate = new Date(vaga.validade),
             month = ((objectDate.getMonth() + 1) < 9) ? ("0" + (objectDate.getMonth() + 1)) : (objectDate.getMonth() + 1);
@@ -65,7 +64,7 @@ function buildDom() {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function () {
+function onAuth(){
     let buttonAdicionarVaga = document.getElementById("adicionarVaga");
 
     buttonAdicionarVaga.addEventListener("click", () => {
@@ -75,7 +74,6 @@ window.addEventListener("DOMContentLoaded", function () {
     api.get('/vagas/all').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((vaga, index) => ({ ...vaga, id: index }));
-            filteredData = (user.isAuth) ? data.filter(item => item.tipoVaga) : data.filter(item => !item.tipoVaga);
             console.log(data)
             buildDom();
 
@@ -89,4 +87,4 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-})
+}

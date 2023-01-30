@@ -12,12 +12,40 @@ function onCreate() {
     let escritorio = document.getElementById("escritorio");
     let selectedOffice = escritorio.options[escritorio.selectedIndex].text;
 
-    let dataToSend = { titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
 
+    let dataToSend = { titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
+    console.log(dataToSend);
     api.post("/vagas/create", dataToSend).then(res => {
         console.log(res.data);
     })
 }
+
+function onEdit() {
+    let params = new URLSearchParams(window.location.search);
+    let titulo = document.getElementById("titulo").value;
+    let descricao = document.getElementById("descricao").value;
+    let tipoVaga = document.getElementById("formCheck-2").checked;
+    let validade = document.getElementById("validade").value;
+    let requisitos = document.getElementById("requisitos").value;
+    let escritorio = document.getElementById("escritorio");
+    let selectedOffice = escritorio.options[escritorio.selectedIndex].text;
+    let buttonCreate = document.getElementById("btnCreate");
+    let tituloContainer = document.getElementById("tituloContainer");
+    let groupFields = document.querySelectorAll('[data-group="formFields"]');
+    buttonCreate.innerText = "Submeter";
+    tituloContainer.innerText = "Vaga";
+    let id = params.get("id");
+    let dataToSend = { id, titulo, descricao, selectedOffice, tipoVaga, validade, requisitos};
+
+    buttonCreate.addEventListener("click", () =>{
+        console.log(dataToSend);
+        api.post("/vagas/edit", dataToSend).then((res) =>{
+            console.log(res.data);
+        })
+        
+    })
+}
+    
 
 function fillFields (data) {
 
@@ -34,44 +62,26 @@ function fillFields (data) {
         descricao.value = data.descricao;
         validade.value = objectDate.getFullYear() + "-" + month + "-" + objectDate.getDate();
         requisitos.value = data.requisitos;
+        if(data.tipoVaga == true){
+            isInternCheckbox.checked = true;
+        }
+        
         escritorio.selectedIndex = document.querySelector("#escritorio option[value='" + data.escritorio + "']").index;
-
-        isInternCheckbox.style.display = "none";
-        let groupFields = document.querySelectorAll('[data-group="formFields"]');
-        groupFields.forEach(element => {
-            element.disabled = true;
-        });
-
-
+        console.log(data);
 }
+function onAuth(){
+    let params = new URLSearchParams(window.location.search);
+    let buttonCreate = document.getElementById("btnCreate");
+ if(params.has("id")) {
+    api.get("/vagas/" + params.get("id")).then((response) => {
+            let data = response.data;
+            fillFields(data);
+            onEdit();
+        })
+        .catch((err) => console.log(err));
 
-window.onload = function () {
-
-    let params = new URLSearchParams(window.location.search),
-        buttonCreate = document.getElementById("btnCreate"),
-        tituloContainer = document.getElementById("tituloContainer");
-
-    if(params) {
-
-        api.get("/vagas/" + params.get("id")).then((response) => {
-                let data = response.data;
-                fillFields(data);
-
-                buttonCreate.innerText = "Candidatar-me";
-                tituloContainer.innerText = "Vaga";
-                buttonCreate.addEventListener("click", () => {
-                    var params = new URLSearchParams();
-                    params.append("id", data._id);
-
-                window.location.href = "nova_candidatura.html?" + params.toString();
-                });
-
-            })
-            .catch((err) => console.log(err));
-
-    } else {
-        buttonCreate.addEventListener("click", () => {
-            onCreate();
-        });;
-    }
-}
+} else {
+    buttonCreate.addEventListener("click", () => {
+        onCreate();
+    });;
+}}

@@ -2,14 +2,14 @@ const Vaga = require('../../models/Vaga');
 
 /**
  * Route that return a role by id
- * @module Vaga/create
+ * @module Vaga/edit
  * @returns {Vaga}
  */
 module.exports = function () {
-    return function (req, res) {
+    return async function (req, res) {
         let data = req.body;
-    
-        let vaga = new Vaga();
+
+        let vaga = await Vaga.findById(req.body.id);
         vaga.titulo = data.titulo;
         vaga.descricao = data.descricao;
         vaga.requisitos = data.requisitos;

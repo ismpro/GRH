@@ -17,6 +17,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
             user = res.data;
 
+            if(typeof onAuth === "function"){
+                onAuth();
+            }
+
             if (res.data.isAuth) {
 
                 navbar.innerHTML += `
