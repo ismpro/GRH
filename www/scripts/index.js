@@ -66,7 +66,7 @@ function buildDom() {
             var params = new URLSearchParams();
             params.append("id", vaga._id);
 
-            window.location.href = "nova_vaga.html?" + params.toString();
+            window.location.href = "/nova_vaga?" + params.toString();
 
         });
 
@@ -75,12 +75,12 @@ function buildDom() {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_candidatura.html?" + params.toString();
+                window.location.href = "/nova_candidatura?" + params.toString();
             } else {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);
 
-                window.location.href = "nova_vaga.html?" + params.toString();
+                window.location.href = "/nova_vaga?" + params.toString();
             }
         });
 
@@ -88,12 +88,7 @@ function buildDom() {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function () {
-    let buttonAdicionarVaga = document.getElementById("adicionarVaga");
-
-    buttonAdicionarVaga.addEventListener("click", () => {
-        window.location.href = "nova_vaga.html";
-    });
+window.onload = function () {
 
     //validates the user's authentication status
     api.post('/auth/validate').then((res) => {
@@ -130,4 +125,4 @@ window.addEventListener("DOMContentLoaded", function () {
         }
 
     }).catch(err => console.log(err))
-})
+}
