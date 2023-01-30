@@ -93,7 +93,7 @@ function onLogout() {
     });
     api.post('/auth/logout').then(res => {
         if (res.status === 200) {
-            if (['/admin', '/profile', '/people'].includes(window.location.pathname)) {
+            if (['/nova_candidatura'].includes(window.location.pathname)) {
                 window.location.href = '/';
             } else {
                 let li = document.getElementById("logout");

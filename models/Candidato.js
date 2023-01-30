@@ -9,7 +9,7 @@ const CandidatoSchema = new Schema({
   genero: String,
   escolaridade: String,
   experienciaProfissional: String,
-  habilidades: [String],
+  habilidades: String,
   pretensaoSalarial: Number,
   type: {
     type: String,

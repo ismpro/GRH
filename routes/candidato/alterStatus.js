@@ -118,11 +118,29 @@ module.exports = function (Mailing) {
                     case "aprovar":
                         candidato.status = "aprovado";
                         candidato.done = new Date();
+
+                        await Mailing.sendEmail({
+                            email: candidato.email,
+                            template: "aprovado",
+                            subject: "Você foi aprovado no processo de recrutamento e seleção",
+                            candidateName: candidato.nome,
+                            recruitersName: position.manager.nome
+                        })
+
                         break;
 
                     case "reprovar":
                         candidato.status = "reprovado";
                         candidato.done = new Date();
+
+                        await Mailing.sendEmail({
+                            email: candidato.email,
+                            template: "reprovado",
+                            subject: "Você não foi selecionado no processo de recrutamento e seleção",
+                            candidateName: candidato.nome,
+                            recruitersName: position.manager.nome
+                        })
+
                         break;
                 }
 

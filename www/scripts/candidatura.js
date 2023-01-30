@@ -145,12 +145,6 @@ function makeModal(candidato) {
     modalDropdown.appendChild(item5);
     modalDropdown.appendChild(item1);
     modalDropdown.appendChild(item2);
-
-    {/* <a class="dropdown-item" role="presentation" href="#">Aprovar</a>
-        <a class="dropdown-item" role="presentation" href="#">Reprovar</a>
-        <a class="dropdown-item" role="presentation" href="#">Passar para teste</a>
-        <a class="dropdown-item" role="presentation" href="#">Marcar entrevista</a>
-        <a class="dropdown-item" role="presentation" href="#">Passar para decisão</a> */}
 }
 
 function onSave() {
@@ -195,7 +189,9 @@ function onSave() {
 
     console.log(dataToSend);
 
-    api.post("/candidatos/alterStatus", dataToSend).then(res => console.log(res.data))
+    api.post("/candidatos/alterStatus", dataToSend).then(res => {
+        window.location.reload();
+    })
 }
 
 function transformDate(modalDate, modalTime) {
@@ -209,6 +205,7 @@ window.addEventListener("DOMContentLoaded", function () {
     api.get('/candidatos').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((candidato, index) => ({ ...candidato, id: index, createdAt: new Date(candidato.createdAt) }));
+            console.log(data)
             dataController.addData(data);
 
             const query = new URLSearchParams(window.location.href);
