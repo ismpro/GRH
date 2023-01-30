@@ -1,5 +1,7 @@
 "use strict";
 
+let user;
+
 window.addEventListener("DOMContentLoaded", function () {
     const navbar = document.getElementById('navbar');
 
@@ -12,6 +14,9 @@ window.addEventListener("DOMContentLoaded", function () {
     //validates the user's authentication status
     api.post('/auth/validate').then((res) => {
         if (res.status === 200) {
+
+            user = res.data;
+
             if (res.data.isAuth) {
 
                 navbar.innerHTML += `
