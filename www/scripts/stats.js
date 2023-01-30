@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 </div>
             </div>`
 
-            mediaAceitacao.innerText = data.mediaAceitacao;
+            mediaAceitacao.innerText = dif(data.mediaAceitacao);
 
             for (const key in data.mediaPorTestes) {
                 mediaTeste.innerHTML +=
@@ -78,4 +78,20 @@ window.addEventListener("DOMContentLoaded", function () {
 
 function to10(num) {
     return (100 * num) / 10;
+}
+
+function dif(diffInMs) {
+    const rtf = new Intl.RelativeTimeFormat(window.navigator.language);
+
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    const diffInWeeks = diffInDays / 7;
+    const diffInMonths = diffInDays / 30.44;
+
+    if (diffInDays < 7) {
+        return rtf.format(Math.round(diffInDays), 'day').replace("in", "");
+    } else if (diffInWeeks < 4) {
+        return rtf.format(Math.round(diffInWeeks), 'week').replace("in", "");
+    } else {
+        return rtf.format(Math.round(diffInMonths), 'month').replace("in", "");
+    }
 }

@@ -35,16 +35,17 @@ module.exports = function () {
 
             let newCandidatos = candidatos.filter(candidato => candidato.status === 'triagem').length;
 
-
             let totalSelectionTime = 0;
-            let doneCandidatos = candidatos.filter(candidato => candidato.status === 'aprovado' && candidato.status === 'reprovado');
+            let doneCandidatos = candidatos.filter(candidato => candidato.status === 'aprovado' || candidato.status === 'reprovado');
+
+            console.log(doneCandidatos)
             
             doneCandidatos.forEach(candidate => {
                 const selectionTime = (candidate.done.getTime() - candidate.createdAt.getTime());
                 totalSelectionTime += selectionTime;
               });
               
-            let mediaAceitacao = (totalSelectionTime / doneCandidatos.length) / (1000 * 60 * 60 * 24);
+            let mediaAceitacao = (totalSelectionTime / doneCandidatos.length);
               
             for (const candidato of candidatos) {
                 numOfEntrevistas += await Entrevista.countDocuments({ candidato: candidato._id });
