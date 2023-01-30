@@ -87,7 +87,7 @@ module.exports = function (Mailing) {
                                     template: "teste",
                                     subject: "Convocação para Teste",
                                     local: "online",
-                                    link: `http://localhost:3000/teste?id=${teste._id}`,
+                                    link: `${process.env.WEBSITE}/teste?id=${teste._id}`,
                                     nome: candidato.nome,
                                     tipo: typeEnum[teste.type],
                                     cargo: position.titulo,
