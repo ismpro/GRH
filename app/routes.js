@@ -2,19 +2,33 @@ const path = require('path');
 const fs = require('fs');
 const User = require('../models/User');
 
-const redirectHome = async (req, res, next) => {
+const redirectNonManager = async (req, res, next) => {
     if (req.session.userid) {
-      let user = await User.findById(req.session.userid);
-  
-      if (user && user.atribuitesessionid === req.session.sessionId && user.type === 'manager') {
-        next();
-      } else {
-        res.redirect("/");
-      }
+        let user = await User.findById(req.session.userid);
+
+        if (user && user.atribuitesessionid === req.session.sessionId && user.type === 'manager') {
+            next();
+        } else {
+            res.redirect("/");
+        }
     } else {
         res.redirect("/");
     }
-  };
+};
+
+const redirectHome = async (req, res, next) => {
+    if (req.session.userid) {
+        let user = await User.findById(req.session.userid);
+
+        if (user && user.atribuitesessionid === req.session.sessionId) {
+            res.redirect("/");
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+};
 
 module.exports = function (app, Mailing) {
 
@@ -38,6 +52,10 @@ module.exports = function (app, Mailing) {
 
     app.get("/dashboard", function (req, res, next) {
         res.redirect("/");
+    });
+
+    app.get("/login", redirectHome, function (req, res, next) {
+        res.status(200).sendFile(path.join(global.appRoot, "www", `login.html`));
     });
 
     app.get("/nova_candidatura", function (req, res, next) {
@@ -73,7 +91,7 @@ module.exports = function (app, Mailing) {
     app.post('/auth/login', require('../routes/auth/login')())
     app.post('/auth/register', require('../routes/auth/register')())
 
-    app.get("/*", redirectHome, function (req, res, next) {
+    app.get("/*", redirectNonManager, function (req, res, next) {
         if (fs.existsSync(path.join(global.appRoot, "www", `${req.path.slice(1)}.html`))) {
             res.status(200).sendFile(path.join(global.appRoot, "www", `${req.path.slice(1)}.html`));
         } else {

@@ -52,7 +52,7 @@ function makeLogin(navbar) {
 
     loginA.className = "btn";
 
-    loginA.href = "/login.html";
+    loginA.href = "/login";
 
     loginA.textContent = "Login";
 
