@@ -46,8 +46,6 @@ function buildDom() {
             button.type = "button";
             button.className = "btn btn-primary";
             button.innerText = "Candidatar-me";
-            button.setAttribute("data-bs-toggle", "modal");
-            button.setAttribute("data-bs-target", "#modal1");
             button.onclick = function () {
                 var params = new URLSearchParams();
                 params.append("id", vaga._id);

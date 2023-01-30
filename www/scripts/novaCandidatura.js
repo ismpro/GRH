@@ -24,6 +24,7 @@ function onCreate() {
 
     api.post("/candidatos/create", dataToSend).then(res => {
         console.log(res.data);
+        window.location.href = "/index";
         clearFields();
     })
 }
@@ -68,7 +69,8 @@ function clearFields () {
 window.onload = function () {
 
     let params = new URLSearchParams(window.location.search),
-        buttonCreate = document.getElementById("btnCreate");
+        buttonCreate = document.getElementById("btnCreate"),
+        form = document.getElementById("poisForm");
 
     if(params) {
 
@@ -78,9 +80,13 @@ window.onload = function () {
                 fillFields(data);
 
                 buttonCreate.innerText = "Submeter Candidatura";
-                buttonCreate.addEventListener("click", () => {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
                     onCreate();
-                });
+                }
+                /*buttonCreate.addEventListener("click", () => {
+                    onCreate();
+                });*/
 
             })
             .catch((err) => console.log(err));
