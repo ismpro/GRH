@@ -10,6 +10,8 @@ const Vaga = require('../../models/Vaga');
 module.exports = function (Mailing) {
     return function (req, res) {
         let data = req.body;
+
+        console.log(data)
     
         let candidato = new Candidato();
         candidato.nome = data.nome;
@@ -29,13 +31,15 @@ module.exports = function (Mailing) {
                 let vaga = await Vaga.findById(candidato.vaga);
                 let manager = await User.findById(vaga.manager);
                 
-                Mailing.sendEmail({
+                await Mailing.sendEmail({
                     email: candidato.email,
                     template: "welcome",
                     subject: "Bem-vindo ao processo de recrutamento e seleção",
                     candidateName: candidato.nome,
                     recruitersName: manager.nome,
-                }).then(data=>res.status(200).send(candidato)).catch(err=>console.log(err));
+                })
+
+                res.status(200).send(candidato);
             } else {
                 console.log(err)
                 res.status(500).send('Error on server');

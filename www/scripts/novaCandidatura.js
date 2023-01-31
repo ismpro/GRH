@@ -24,11 +24,11 @@ function onCreate() {
 
         console.log(dataToSend)
 
-    /* api.post("/candidatos/create", dataToSend).then(res => {
+    api.post("/candidatos/create", dataToSend).then(res => {
         console.log(res.data);
         window.location.href = "/index";
         clearFields();
-    }) */
+    })
 }
 
 function fillFields (data) {
