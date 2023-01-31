@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const { google } = require('googleapis');
+const path = require("path");
 
 const { OAuth2 } = google.auth;
 const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
@@ -42,7 +43,7 @@ Mailing.sendEmail = function (data) {
             },
         });
     
-        const filePath = `${global.appRoot}\\templates\\${data.template}.ejs`;
+        const filePath = path.resolve(`./templates/${data.template}.ejs`);
     
         let error = ejs.renderFile(filePath, data, {}, (e, content) => {
             if (e) return e;

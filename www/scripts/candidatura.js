@@ -205,13 +205,12 @@ window.addEventListener("DOMContentLoaded", function () {
     api.get('/candidatos').then(res => {
         if (typeof res.data === 'object') {
             data = res.data.map((candidato, index) => ({ ...candidato, id: index, createdAt: new Date(candidato.createdAt) }));
-            console.log(data)
             dataController.addData(data);
 
             const query = new URLSearchParams(window.location.href);
             if(query.has(window.location.origin + window.location.pathname + "?id")) {
                 let id = query.get(window.location.origin + window.location.pathname + "?id")
-                let candidato = data.find((can => can._id = id));
+                let candidato = data.find((can => can._id === id));
                 if(candidato) {
                     makeModal(candidato);
 
